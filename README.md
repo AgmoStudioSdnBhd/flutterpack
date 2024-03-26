@@ -41,11 +41,11 @@ Feature also include different user interface for different image file type
 
 - Animated image
 
-  <video src="multimedia_gallery/assets/videos/gif_audio_viewer_example.mov" height="400" controls="1"></video>
+https://github.com/AgmoStudioSdnBhd/flutterpack/assets/164973699/75b8d71f-4bf9-4009-9264-91868c39757c
 
 - Normal image
 
-  <video src="multimedia_gallery/assets/videos/image_audio_viewer_example.mov" height="400" controls="1"></video>
+https://github.com/AgmoStudioSdnBhd/flutterpack/assets/164973699/371ad321-8945-421e-a106-b7f9e19d5fb4
 
 ### Requirements
 
