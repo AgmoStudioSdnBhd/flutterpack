@@ -126,9 +126,11 @@ class _AudioViewerState extends State<AudioViewer> {
         double maxScrollExtent = controller.position.maxScrollExtent;
         double minScrollExtent = controller.position.minScrollExtent;
         if (controller.offset != maxScrollExtent) {
-          controller.animateTo(maxScrollExtent, duration: const Duration(seconds: 5), curve: Curves.linear);
+          controller.animateTo(maxScrollExtent,
+              duration: const Duration(seconds: 5), curve: Curves.linear);
         } else {
-          controller.animateTo(minScrollExtent, duration: const Duration(seconds: 5), curve: Curves.linear);
+          controller.animateTo(minScrollExtent,
+              duration: const Duration(seconds: 5), curve: Curves.linear);
         }
       }
     });
@@ -166,7 +168,9 @@ class _AudioViewerState extends State<AudioViewer> {
   /// is a future method. After the [player.getCurrentPosition] is invoked, a
   /// final parameter [audioTimestamp] is set to this value.
   void getCurrentTimestamp() {
-    player.getCurrentPosition().then((value) => setState(() => audioTimestamp = value));
+    player
+        .getCurrentPosition()
+        .then((value) => setState(() => audioTimestamp = value));
   }
 
   /// The audio player controller. This controller method is to listen and update
@@ -220,10 +224,14 @@ class _AudioViewerState extends State<AudioViewer> {
     return isGif(widget.image)
         ? Container(
             decoration: BoxDecoration(
-                image:
-                    DecorationImage(image: widget.image ?? emptyImage, fit: BoxFit.none, repeat: ImageRepeat.repeat)),
-            child: Stack(children: [Container(color: Colors.black38), _buildContent()]))
-        : GradientBackground(image: widget.image ?? emptyImage, child: _buildContent());
+                image: DecorationImage(
+                    image: widget.image ?? emptyImage,
+                    fit: BoxFit.none,
+                    repeat: ImageRepeat.repeat)),
+            child: Stack(
+                children: [Container(color: Colors.black38), _buildContent()]))
+        : GradientBackground(
+            image: widget.image ?? emptyImage, child: _buildContent());
   }
 
   Widget _buildContent() {
@@ -233,86 +241,118 @@ class _AudioViewerState extends State<AudioViewer> {
         appBar: AppBar(
             backgroundColor: Colors.transparent,
             leading: IconButton(
-                icon: backButton, onPressed: () => Navigator.pop(context), color: Colors.white)),
+                icon: backButton,
+                onPressed: () => Navigator.pop(context),
+                color: Colors.white)),
         body: SingleChildScrollView(
           child: Container(
               height: MediaQuery.of(context).size.height -
                   MediaQuery.of(context).padding.top -
                   kToolbarHeight,
               padding: widget.screenPadding ?? padding16,
-              child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                isGif(widget.image)
-                    ? Expanded(flex: 2, child: SizedBox(height: MediaQuery.of(context).size.height / 2))
-                    : Flexible(
-                        child: FittedBox(
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Card(
-                                elevation: 4,
-                                clipBehavior: Clip.antiAlias,
-                                child: Image(
-                                    image: widget.image ?? emptyImage,
-                                    width: MediaQuery.of(context).size.shortestSide / 2,
-                                    fit: BoxFit.fill),
-                              )),
-                        ),
-                      ),
-                sizedBoxGapConstantH10,
-                Flexible(
-                  flex: 2,
-                    child: Column(mainAxisSize: MainAxisSize.min, children: [
-                      SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          controller: _titleController,
-                          child: Column(mainAxisSize: MainAxisSize.min, children: [
-                            Flexible(
-                                child: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Text(widget.songName ?? '',
-                                        style: widget.songNameTextStyle ?? audioNameTextStyle)))
-                          ])),
-                      SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          controller: _artistController,
-                          child: Column(mainAxisSize: MainAxisSize.min, children: [
-                            Flexible(
-                                child: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Text(widget.artistName ?? '',
-                                        style: widget.artistNameTextStyle ?? artistNameTextStyle)))
-                          ])),
-                      sizedBoxGapConstantH10,
-                      SliderTheme(
-                          data: widget.sliderTheme ??
-                              timeStampSlider,
-                          child: Slider(
-                              value: sliderPosition ?? 0,
-                              min: 0,
-                              max: sliderMaxPosition ?? 0,
-                              onChanged: (value) {
-                                sliderPosition = value;
-                              },
-                              onChangeEnd: (value) {
-                                seekTo(value);
-                              })),
-                      Padding(
-                          padding: padding10,
-                          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                            Text(formatDuration(audioTimestamp ?? Duration.zero), style: timestampTextStyle),
-                            Text(formatDuration((audioDuration ?? Duration.zero) - (audioTimestamp ?? Duration.zero)),
-                                style: timestampTextStyle)
-                          ])),
-                      IconButton.filled(
-                          onPressed: widget.onPressed ??
-                              () {
-                                setState(() {
-                                  (player.state.name == 'playing') ? pauseAudio() : resumeAudio();
-                                });
-                              },
-                          icon: widget.icon ?? Icon(player.state.name == 'playing' ? Icons.pause : Icons.play_arrow),
-                          style: widget.iconStyle ?? audioIconStyle)
-                    ]))
-              ])),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    isGif(widget.image)
+                        ? Expanded(
+                            flex: 2,
+                            child: SizedBox(
+                                height: MediaQuery.of(context).size.height / 2))
+                        : Flexible(
+                            child: FittedBox(
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Card(
+                                    elevation: 4,
+                                    clipBehavior: Clip.antiAlias,
+                                    child: Image(
+                                        image: widget.image ?? emptyImage,
+                                        width: MediaQuery.of(context)
+                                                .size
+                                                .shortestSide /
+                                            2,
+                                        fit: BoxFit.fill),
+                                  )),
+                            ),
+                          ),
+                    sizedBoxGapConstantH10,
+                    Flexible(
+                        flex: 2,
+                        child:
+                            Column(mainAxisSize: MainAxisSize.min, children: [
+                          SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              controller: _titleController,
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Flexible(
+                                        child: FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text(widget.songName ?? '',
+                                                style:
+                                                    widget.songNameTextStyle ??
+                                                        audioNameTextStyle)))
+                                  ])),
+                          SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              controller: _artistController,
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Flexible(
+                                        child: FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text(widget.artistName ?? '',
+                                                style: widget
+                                                        .artistNameTextStyle ??
+                                                    artistNameTextStyle)))
+                                  ])),
+                          sizedBoxGapConstantH10,
+                          SliderTheme(
+                              data: widget.sliderTheme ?? timeStampSlider,
+                              child: Slider(
+                                  value: sliderPosition ?? 0,
+                                  min: 0,
+                                  max: sliderMaxPosition ?? 0,
+                                  onChanged: (value) {
+                                    sliderPosition = value;
+                                  },
+                                  onChangeEnd: (value) {
+                                    seekTo(value);
+                                  })),
+                          Padding(
+                              padding: padding10,
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                        formatDuration(
+                                            audioTimestamp ?? Duration.zero),
+                                        style: timestampTextStyle),
+                                    Text(
+                                        formatDuration((audioDuration ??
+                                                Duration.zero) -
+                                            (audioTimestamp ?? Duration.zero)),
+                                        style: timestampTextStyle)
+                                  ])),
+                          IconButton.filled(
+                              onPressed: widget.onPressed ??
+                                  () {
+                                    setState(() {
+                                      (player.state.name == 'playing')
+                                          ? pauseAudio()
+                                          : resumeAudio();
+                                    });
+                                  },
+                              icon: widget.icon ??
+                                  Icon(player.state.name == 'playing'
+                                      ? Icons.pause
+                                      : Icons.play_arrow),
+                              style: widget.iconStyle ?? audioIconStyle)
+                        ]))
+                  ])),
         ));
   }
 }

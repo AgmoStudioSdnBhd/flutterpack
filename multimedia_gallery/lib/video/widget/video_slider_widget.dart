@@ -27,10 +27,7 @@ class VideoSlider extends StatelessWidget {
           children: [
             Text(formatVideoDuration(currentPosition, videoDuration),
                 style: timestampTextStyle),
-            SliderTheme(
-                data: data ??
-                    timeStampSlider,
-                child: child),
+            SliderTheme(data: data ?? timeStampSlider, child: child),
           ]),
     );
   }

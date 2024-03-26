@@ -82,7 +82,8 @@ class _VideoViewerState extends State<VideoViewer> {
   void startTimer() {
     videoTimestamp = Timer.periodic(const Duration(milliseconds: 1), (timer) {
       if (controller.value.duration != Duration.zero) {
-        if (controller.value.position.inMilliseconds < controller.value.duration.inMilliseconds) {
+        if (controller.value.position.inMilliseconds <
+            controller.value.duration.inMilliseconds) {
           setState(() {
             controller.value.position.inMilliseconds.toDouble();
             currentPosition = controller.value.position;
@@ -138,12 +139,14 @@ class _VideoViewerState extends State<VideoViewer> {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight
     ]);
-    final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    final brightness =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
     return OrientationBuilder(builder: (context, orientation) {
       final isPortrait = orientation == Orientation.portrait;
       return Scaffold(
-          backgroundColor: widget.backgroundColor ?? (isDarkMode ? Colors.black : Colors.white),
+          backgroundColor: widget.backgroundColor ??
+              (isDarkMode ? Colors.black : Colors.white),
           appBar: isPortrait
               ? AppBar(
                   leading: IconButton(
@@ -160,7 +163,10 @@ class _VideoViewerState extends State<VideoViewer> {
                     ? isPortrait
                         ? _buildPortraitVideo(isPortrait)
                         : _buildLandscapeVideo(isPortrait)
-                    : Container(color: Colors.white, alignment: Alignment.topCenter, child: loadingIndicator());
+                    : Container(
+                        color: Colors.white,
+                        alignment: Alignment.topCenter,
+                        child: loadingIndicator());
               }));
     });
   }
@@ -170,7 +176,8 @@ class _VideoViewerState extends State<VideoViewer> {
         alignment: Alignment.center,
         height: MediaQuery.of(context).size.height,
         // Fill the screen with white color
-        child: AspectRatio(aspectRatio: videoAspectRatio, child: _buildVideo(isPortrait)));
+        child: AspectRatio(
+            aspectRatio: videoAspectRatio, child: _buildVideo(isPortrait)));
   }
 
   Widget _buildLandscapeVideo(bool isPortrait) {

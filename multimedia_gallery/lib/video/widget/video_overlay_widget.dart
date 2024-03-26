@@ -45,10 +45,13 @@ class VideoOverlay extends StatelessWidget {
           child: isPortrait
               ? null
               : IconButton(
-                  onPressed: () => Navigator.pop(context), icon: backButton, color: backButtonColor ?? Colors.white)),
+                  onPressed: () => Navigator.pop(context),
+                  icon: backButton,
+                  color: backButtonColor ?? Colors.white)),
       Center(
           child: IconButton(
-              icon: Icon(controller.value.isPlaying ? Icons.pause : Icons.play_arrow),
+              icon: Icon(
+                  controller.value.isPlaying ? Icons.pause : Icons.play_arrow),
               iconSize: iconSize ?? 50,
               color: iconColor ?? Colors.white,
               onPressed: onPlayPressed)),

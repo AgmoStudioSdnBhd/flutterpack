@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 const AssetImage emptyImage = AssetImage('');
 
 /// constant text style for the multimedia gallery
-const TextStyle imageDateTextStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+const TextStyle imageDateTextStyle =
+    TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
 const TextStyle imageTimeAndNameTextStyle = TextStyle(fontSize: 16);
-const TextStyle audioNameTextStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white);
-const TextStyle artistNameTextStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white70);
-const TextStyle timestampTextStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
+const TextStyle audioNameTextStyle =
+    TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white);
+const TextStyle artistNameTextStyle =
+    TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white70);
+const TextStyle timestampTextStyle =
+    TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
 
 /// constant loading indicator
 Widget loadingIndicator() => const Center(child: CircularProgressIndicator());
@@ -44,4 +48,3 @@ SliderThemeData timeStampSlider = SliderThemeData(
     thumbColor: Colors.white,
     activeTrackColor: Colors.white,
     inactiveTrackColor: Colors.grey.withOpacity(0.6));
-

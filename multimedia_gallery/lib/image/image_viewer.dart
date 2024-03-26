@@ -97,63 +97,62 @@ class _ImageViewerState extends State<ImageViewer> with WidgetsBindingObserver {
     return OrientationBuilder(builder: (context, orientation) {
       final isPortrait = orientation == Orientation.portrait;
       return Container(
-        color: isDarkMode ? Colors.black : Colors.white,
-        child: SafeArea(
-          child: Scaffold(
-              backgroundColor: Colors.transparent,
-              appBar: AppBar(
-                  automaticallyImplyLeading: false,
-                  backgroundColor: isDarkMode ? Colors.black : Colors.white,
-                  flexibleSpace: imageHeader(widget.dateTime, widget.name,
-                      isDarkMode, () => Navigator.pop(context))),
-              body: Center(
-                  child: ClipRRect(
-                      borderRadius: widget.radius ?? BorderRadius.zero,
-                      child: InteractiveViewer(
-                          transformationController:
-                              widget.transformationController,
-                          boundaryMargin:
-                              widget.boundaryMargin ?? padding6,
-                          clipBehavior: widget.clipBehaviour ?? Clip.hardEdge,
-                          constrained: widget.constrained ?? true,
-                          minScale: widget.minScale ?? 1,
-                          maxScale: widget.maxScale ?? 3,
-                          onInteractionEnd: widget.onInteractionEnd,
-                          onInteractionStart: widget.onInteractionStart,
-                          onInteractionUpdate: widget.onInteractionUpdate,
-                          panEnabled: widget.panEnabled ?? false,
-                          scaleEnabled: widget.scaleEnabled ?? true,
-                          child: Image(
-                              image: widget.imageProvider,
-                              fit: widget.fit ??
-                                  (isPortrait
-                                      ? BoxFit.fitWidth
-                                      : BoxFit.fitHeight),
-                              width: widget.width ??
-                                  MediaQuery.of(context).size.width,
-                              height: widget.height ??
-                                  MediaQuery.of(context).size.height,
-                              opacity: widget.opacity,
-                              repeat: widget.repeat ?? ImageRepeat.noRepeat,
-                              frameBuilder: widget.frameLoadedBuilder ??
-                                  (context, child, frame,
-                                          wasSynchronouslyLoaded) =>
-                                      child,
-                              loadingBuilder: widget.frameLoadingBuilder ??
-                                  (BuildContext context, Widget child,
-                                      ImageChunkEvent? loadingProgress) {
-                                    return loadingProgress == null
-                                        ? child
-                                        : SizedBox(
-                                            height: widget.indicatorHeight ??
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    4,
-                                            child: loadingIndicator());
-                                  })))))
-        )
-      );
+          color: isDarkMode ? Colors.black : Colors.white,
+          child: SafeArea(
+              child: Scaffold(
+                  backgroundColor: Colors.transparent,
+                  appBar: AppBar(
+                      automaticallyImplyLeading: false,
+                      backgroundColor: isDarkMode ? Colors.black : Colors.white,
+                      flexibleSpace: imageHeader(widget.dateTime, widget.name,
+                          isDarkMode, () => Navigator.pop(context))),
+                  body: Center(
+                      child: ClipRRect(
+                          borderRadius: widget.radius ?? BorderRadius.zero,
+                          child: InteractiveViewer(
+                              transformationController:
+                                  widget.transformationController,
+                              boundaryMargin: widget.boundaryMargin ?? padding6,
+                              clipBehavior:
+                                  widget.clipBehaviour ?? Clip.hardEdge,
+                              constrained: widget.constrained ?? true,
+                              minScale: widget.minScale ?? 1,
+                              maxScale: widget.maxScale ?? 3,
+                              onInteractionEnd: widget.onInteractionEnd,
+                              onInteractionStart: widget.onInteractionStart,
+                              onInteractionUpdate: widget.onInteractionUpdate,
+                              panEnabled: widget.panEnabled ?? false,
+                              scaleEnabled: widget.scaleEnabled ?? true,
+                              child: Image(
+                                  image: widget.imageProvider,
+                                  fit: widget.fit ??
+                                      (isPortrait
+                                          ? BoxFit.fitWidth
+                                          : BoxFit.fitHeight),
+                                  width: widget.width ??
+                                      MediaQuery.of(context).size.width,
+                                  height: widget.height ??
+                                      MediaQuery.of(context).size.height,
+                                  opacity: widget.opacity,
+                                  repeat: widget.repeat ?? ImageRepeat.noRepeat,
+                                  frameBuilder: widget.frameLoadedBuilder ??
+                                      (context, child, frame,
+                                              wasSynchronouslyLoaded) =>
+                                          child,
+                                  loadingBuilder: widget.frameLoadingBuilder ??
+                                      (BuildContext context, Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        return loadingProgress == null
+                                            ? child
+                                            : SizedBox(
+                                                height:
+                                                    widget.indicatorHeight ??
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            4,
+                                                child: loadingIndicator());
+                                      })))))));
     });
   }
 }

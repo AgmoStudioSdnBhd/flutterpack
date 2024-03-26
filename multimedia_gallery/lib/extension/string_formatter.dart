@@ -23,4 +23,5 @@ String formatDateToyMMMd(DateTime dt) => DateFormat.yMMMMd('en_US').format(dt);
 /// The video timestamp formatter.
 String formatVideoDuration(String current, String dur) => '$current / $dur';
 
-bool isGif(ImageProvider? image) => (image ?? emptyImage).toString().contains('.gif');
+bool isGif(ImageProvider? image) =>
+    (image ?? emptyImage).toString().contains('.gif');
