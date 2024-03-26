@@ -6,13 +6,19 @@ A gallery that support image, video and audio with presentable user interface.
 
 ## Features
 
+List of features' supported platform
+| Features | iOS | Android |
+|--------------|--------------------|--------------------|
+| Image Viewer | ✅ |✅|
+| Video Viewer | ✅ |✅|
+| Audio Viewer | ✅ |✅|
+
 ### Image Viewer
 
-This feature support image panning, zoom in and out by pinching the image.
+This feature support image panning, zoom in and out by pinching the image. This feature also supports for light mode and dark mode detector.
 
-- Zoom In and Out
-
-  ![Image Viewer Example](multimedia_gallery/assets/images/image_viewer_example.gif)
+<img src="multimedia_gallery/assets/images/image_viewer_example.gif" alt="drawing" width="200"/>
+<img src="multimedia_gallery/assets/images/image_viewer_dark_mode_example.gif" alt="drawing" width="200"/>
 
 ### Video Viewer
 
@@ -35,11 +41,11 @@ Feature also include different user interface for different image file type
 
 - Animated image
 
-  ![Image Viewer Example](multimedia_gallery/assets/images/gif_audio_example.gif)
+  <video src="multimedia_gallery/assets/videos/gif_audio_viewer_example.mov" height="400" controls="1"></video>
 
 - Normal image
 
-  ![Image Viewer Example](multimedia_gallery/assets/images/image_audio_example.gif)
+  <video src="multimedia_gallery/assets/videos/image_audio_viewer_example.mov" height="400" controls="1"></video>
 
 ### Requirements
 
@@ -50,7 +56,7 @@ Feature also include different user interface for different image file type
 
 #### Image Viewer
 
-Viewing image
+ImageViewer can be called to view image as shown below. The image path is get via Image Provider. The image name and date time of the image capture will be required to call the method.
 
 **example/lib/image_screen.dart**
 
@@ -63,14 +69,23 @@ class ImageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: ImageViewer(imageProvider: AssetImage('assets/images/cat_cri.png')));
+    return Scaffold(
+        body: ImageViewer(
+            imageProvider: const AssetImage('assets/images/scenery.jpeg'),
+            dateTime: DateTime.now(),
+            name: 'Scenery'));
   }
 }
 ```
 
 #### Video Viewer
 
-Viewing video
+VideoViewer can be called to view video as shown below. The video path is get via video file extension provided by the package. There are 3 different file type extension can be call by using:
+
+- **_assetVideo()_** to call video from assets file
+- **_localVideo()_** to get the video from local file.
+- **_networkVideo()_** to get the video with network url.
+  The video path will be required to call this method.
 
 **example/lib/video_screen.dart**
 
@@ -98,12 +113,17 @@ VideoViewer(path: localFile('C:/Users/user/documents/butterfly.mp4'))
 
 ### Audio Viewer
 
-Viewing audio
+AudioViewer can be called to view and listen to audio as shown below. The audio path is get via audio file extension provided by the package. There are 3 different file type extension can be call by using:
+
+- **_assetFile()_** to call audio from assets file
+- **_localFile()_** to get the audio from local file.
+- **_urlFile()_** to get the audio with network url.
+  The audio path will be required to call this method.
 
 **example/lib/audio_screen.dart**
 
 ```
-///calling [networkFile] to play network audio
+///calling [urlFile] to play network audio
 import 'package:flutter/material.dart';
 import 'package:multimedia_gallery/multimedia_gallery.dart';
 
@@ -114,25 +134,25 @@ class AudioScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: AudioViewer(
-          path: networkFile('https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3'),
-          image: const AssetImage('assets/images/cat_cri.png'),
-          songName: 'Kalimba',
-          artistName: 'Lorem Ipsum lllllllllllllllllllllklmjghklnmkygmdfgfksgdkhgbs')
-    );
+            path: urlFile('https://cdn.pixabay.com/audio/2024/03/16/audio_9a03ff5e94.mp3?filename=warm-nights-196465.mp3'),
+            image: const AssetImage('assets/images/warm_nights.png'),
+            songName: 'Warm Nights',
+            artistName: 'xethrocc'));
   }
 }
 
+
 /// calling [assetFile] to play audio file located in assets
 AudioViewer(
-  path: assetFile('assets/video/Kalimba.mp3'),
-  image: const AssetImage('assets/images/cat_cri.png'),
-  songName: 'Kalimba',
-  artistName: 'Lorem Iplllllllllllllllllllllklmjghklnmkygmdfgfksgdkhgbs');
+  path: assetFile('assets/video/warm-nights.mp3'),
+  image: const AssetImage('assets/images/warm-nights.png'),
+  songName: 'Warm Nights',
+  artistName: 'xethrocc');
 
 /// calling [localFile] to play audio file located in local directory
 AudioViewer(
-  path: localFile('C:/Users/user/video/Kalimba.mp3'),
-  image: const AssetImage('assets/images/cat_cri.png'),
-  songName: 'Kalimba',
-  artistName: 'Lorem Iplllllllllllllllllllllklmjghklnmkygmdfgfksgdkhgbs');
+  path: localFile('C:/Users/user/video/warm-nights.mp3'),
+  image: const AssetImage('assets/images/warm_nights.png'),
+  songName: 'Warm Nights',
+  artistName: 'xethrocc');
 ```
