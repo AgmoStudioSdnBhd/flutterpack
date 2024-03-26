@@ -24,3 +24,8 @@
 ## 0.0.1+4
 
 - Fix linter warning
+
+## 0.0.1+5
+
+- Update README.md
+- Added issue tracker and repository link
