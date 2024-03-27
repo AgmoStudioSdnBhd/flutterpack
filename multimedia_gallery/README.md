@@ -17,8 +17,11 @@ List of features' supported platform
 
 This feature support image panning, zoom in and out by pinching the image. This feature also supports for light mode and dark mode detector.
 
-<img src="assets/images/image_viewer_example.gif" alt="drawing" width="200"/>
-<img src="assets/images/image_viewer_dark_mode_example.gif" alt="drawing" width="200"/>
+  - In Light Mode
+    ![Image Viewer Example](https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/gif_audio_viewer_example.gif)
+
+  - In Dark Mode
+    ![Image Viewer Example](https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_viewer_dark_mode_example.gif)
 
 ### Video Viewer
 
@@ -30,8 +33,9 @@ It also include:
 - Pause video: Able to pause the video
 - Duration slider: Able to slide the video to desire timestamp
 
-  ![Image Viewer Example](assets/images/play_pause_video_example.gif)
-  ![Image Viewer Example](assets/images/slider_example.gif)
+  ![Image Viewer Example](https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/play_pause_video_example.gif)
+
+  ![Image Viewer Example](https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/slider_example.gif)
 
 ### Audio Viewer
 
@@ -41,11 +45,11 @@ Feature also include different user interface for different image file type
 
 - Animated image
 
-  <video src="assets/videos/gif_audio_viewer_example.mov" height="400" controls="1"></video>
+  ![Image Viewer Example](https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/gif_audio_viewer_example.gif)
 
 - Normal image
 
-  <video src="assets/videos/image_audio_viewer_example.mov" height="400" controls="1"></video>
+  ![Image Viewer Example](https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_audio_viewer_example.gif)
 
 ### Requirements
 

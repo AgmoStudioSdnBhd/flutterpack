@@ -29,3 +29,11 @@
 
 - Update README.md
 - Added issue tracker and repository link
+
+## 0.0.1+6
+
+- Fix dart linter warning 
+
+## 0.0.1+7
+
+- Fix pub dev readme gif not working

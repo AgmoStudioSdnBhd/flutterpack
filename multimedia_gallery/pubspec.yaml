@@ -1,8 +1,10 @@
 name: multimedia_gallery
-description: "A image viewer gallery that display image, video and audio."
-version: 0.0.1+5
-repository: https://github.com/AgmoStudioSdnBhd/flutterpack
-issue_tracker: https://github.com/AgmoStudioSdnBhd/flutterpack/issues?q=is%3Aissue+is%3Aopen+
+description: "A multimedia gallery for Flutter. This gallery support image panning and zooming, video viewing and audio playing with multiple media format."
+version: 0.0.1+7
+# Uncomment to enable the github link once go live.
+# repository: https://github.com/AgmoStudioSdnBhd/flutterpack
+# issue_tracker: https://github.com/AgmoStudioSdnBhd/flutterpack/issues?q=is%3Aissue+is%3Aopen+
+homepage: https://www.agmostudio.com/
 environment:
   sdk: '>=3.2.4 <4.0.0'
   flutter: ">=1.17.0"

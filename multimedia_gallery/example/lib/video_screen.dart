@@ -7,6 +7,8 @@ class VideoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: VideoViewer(path: networkVideo('https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4')));
+        body: VideoViewer(
+            path: networkVideo(
+                'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4')));
   }
 }
