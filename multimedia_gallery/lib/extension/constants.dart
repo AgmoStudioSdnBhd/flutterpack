@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 ///Empty image
 const AssetImage emptyImage = AssetImage('');
@@ -15,7 +16,14 @@ const TextStyle timestampTextStyle =
     TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
 
 /// constant loading indicator
-Widget loadingIndicator() => const Center(child: CircularProgressIndicator());
+Widget loadingIndicator() => const Center(
+    child: SizedBox(
+        height: 40,
+        child: LoadingIndicator(
+            indicatorType: Indicator.lineScaleParty,
+            backgroundColor: Colors.transparent,
+            colors: [lightVibrantBlue],
+            pathBackgroundColor: Colors.white38)));
 
 /// gap constant
 const SizedBox sizedBoxGapConstantH8 = SizedBox(height: 8);
@@ -30,11 +38,13 @@ const EdgeInsets padding6 = EdgeInsets.all(6);
 const ButtonStyle audioIconStyle = ButtonStyle(
     backgroundColor: MaterialStatePropertyAll<Color>(Colors.white),
     iconColor: MaterialStatePropertyAll<Color>(Colors.black),
-    iconSize: MaterialStatePropertyAll(20));
+    iconSize: MaterialStatePropertyAll(30));
 
 /// constant gradient color
 const Color lightVibrantBlue = Color.fromRGBO(197, 231, 255, 1.0);
 const Color lightMutedBlue = Color.fromRGBO(88, 130, 159, 1.0);
+const Color mainListingBlack = Color.fromARGB(255, 3, 14, 28);
+const Color mainListingBlue = Color.fromARGB(255, 36, 52, 74);
 
 /// constant back button
 const Icon backButton = Icon(Icons.arrow_back);
@@ -48,3 +58,8 @@ SliderThemeData timeStampSlider = SliderThemeData(
     thumbColor: Colors.white,
     activeTrackColor: Colors.white,
     inactiveTrackColor: Colors.grey.withOpacity(0.6));
+
+const LinearGradient activeIconGradient = LinearGradient(
+    begin: Alignment.topRight,
+    end: Alignment.bottomLeft,
+    colors: [mainListingBlue, Color.fromARGB(255, 107, 192, 255)]);

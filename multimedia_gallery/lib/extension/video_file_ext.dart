@@ -18,3 +18,15 @@ assetVideo(String path) {
 localVideo(String path) {
   return VideoPlayerController.file(File(path));
 }
+
+getVideoSourceType(String? path) {
+  if (path != null) {
+    if (path.startsWith('https') || path.startsWith('http')) {
+      return networkVideo(path);
+    } else if (path.startsWith('assets')) {
+      return assetVideo(path);
+    } else {
+      return localVideo(path);
+    }
+  }
+}

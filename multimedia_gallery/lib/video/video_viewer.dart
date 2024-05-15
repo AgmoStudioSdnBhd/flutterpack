@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:multimedia_gallery/extension/constants.dart';
+import 'package:multimedia_gallery/extension/video_file_ext.dart';
+import 'package:multimedia_gallery/listing/model/video_model.dart';
 import 'package:multimedia_gallery/video/widget/video_overlay_widget.dart';
 import 'package:video_player/video_player.dart';
 
@@ -11,7 +13,8 @@ import 'package:video_player/video_player.dart';
 class VideoViewer extends StatefulWidget {
   const VideoViewer(
       {super.key,
-      required this.path,
+      required this.model,
+      required this.selected,
       this.sliderStyle,
       this.timeStampStyle,
       this.onChangeEnd,
@@ -20,7 +23,8 @@ class VideoViewer extends StatefulWidget {
       this.onVideoScreenTap,
       this.backgroundColor});
 
-  final VideoPlayerController path;
+  final List<VideoModel> model;
+  final int selected;
   final SliderThemeData? sliderStyle;
   final TextStyle? timeStampStyle;
   final Function(double)? onSliderChange;
@@ -35,14 +39,11 @@ class VideoViewer extends StatefulWidget {
 
 class _VideoViewerState extends State<VideoViewer> {
   late VideoPlayerController controller;
+  late int index = widget.selected;
 
   /// The [controller.inintialize] method. Use to call for initialize the
   /// video player controller
   late Future<void> initializeVideoPlayerFuture;
-
-  /// The video timestamp controller. This timer object is call for the video
-  /// player current timestamp.
-  late Timer videoTimestamp;
 
   /// The show overlay timer. This timer object is call for the video overlay
   /// to hide after the overlay widgets is shown for 5 seconds.
@@ -51,61 +52,34 @@ class _VideoViewerState extends State<VideoViewer> {
   /// The hide and show for video overlay widgets.
   bool isShowIcon = false;
 
-  /// The slider value to be use on updating the slider.
-  double sliderValue = 0;
-
   /// The video player current timestamp.
   Duration currentPosition = Duration.zero;
 
   @override
   void initState() {
     super.initState();
-    controller = widget.path;
-    initializeVideoPlayerFuture = controller.initialize();
+    initializeVideoController();
     playVideo();
-    startTimer();
+    controller.addListener(() {
+      setState(() {
+        currentPosition = controller.value.position;
+      });
+    });
   }
 
   @override
   void dispose() {
     controller.dispose();
-    videoTimestamp.cancel();
     super.dispose();
+  }
+
+  void initializeVideoController() {
+    controller = networkVideo(widget.model[index].path ?? '');
+    initializeVideoPlayerFuture = controller.initialize();
   }
 
   /// The video duration getter. To get the duration of the audio file.
   Duration getVideoDuration() => controller.value.duration;
-
-  /// The video player timestamp controller. This method is to update the [timestamp] and
-  /// the [sliderValue] of the video player. This method will be prompt on [initState]
-  /// to start playing the video while updating the current timestamp and the slider value.
-  void startTimer() {
-    videoTimestamp = Timer.periodic(const Duration(milliseconds: 1), (timer) {
-      if (controller.value.duration != Duration.zero) {
-        if (controller.value.position.inMilliseconds <
-            controller.value.duration.inMilliseconds) {
-          setState(() {
-            controller.value.position.inMilliseconds.toDouble();
-            currentPosition = controller.value.position;
-          });
-        } else {
-          onVideoCompleted();
-          controller.value.duration;
-          timer.cancel();
-        }
-      } else {
-        getVideoDuration();
-      }
-    });
-  }
-
-  /// The video [onComplete] controller. This method is to control the activity after
-  /// the video is done playing.
-  void onVideoCompleted() {
-    setState(() {
-      controller.value.duration.inMilliseconds.toDouble();
-    });
-  }
 
   /// The video timestamp update method. This method is to update the timestamp
   /// of the video by the slider value. This method will be call after sliding the
@@ -164,7 +138,7 @@ class _VideoViewerState extends State<VideoViewer> {
                         ? _buildPortraitVideo(isPortrait)
                         : _buildLandscapeVideo(isPortrait)
                     : Container(
-                        color: Colors.white,
+                        color: Colors.white54,
                         alignment: Alignment.topCenter,
                         child: loadingIndicator());
               }));
@@ -181,7 +155,7 @@ class _VideoViewerState extends State<VideoViewer> {
   }
 
   Widget _buildLandscapeVideo(bool isPortrait) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     return Stack(children: [_buildVideo(isPortrait)]);
   }
 

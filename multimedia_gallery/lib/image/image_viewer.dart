@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:multimedia_gallery/extension/constants.dart';
+import 'package:multimedia_gallery/extension/image_file_ext.dart';
 import 'package:multimedia_gallery/image/widget/image_header_widget.dart';
+import 'package:multimedia_gallery/listing/model/image_model.dart';
 
 /// The image viewer class. This class can be used to display image that can
 /// be zoom in and out and panning. This class also detect the color mode of
@@ -10,9 +12,7 @@ import 'package:multimedia_gallery/image/widget/image_header_widget.dart';
 class ImageViewer extends StatefulWidget {
   const ImageViewer(
       {super.key,
-      required this.imageProvider,
-      required this.dateTime,
-      required this.name,
+      required this.model,
       this.fit,
       this.radius,
       this.indicatorHeight,
@@ -35,9 +35,7 @@ class ImageViewer extends StatefulWidget {
       this.width,
       this.height});
 
-  final ImageProvider imageProvider;
-  final DateTime dateTime;
-  final String name;
+  final ImageModel model;
   final BorderRadius? radius;
   final BoxFit? fit;
   final double? indicatorHeight;
@@ -94,6 +92,9 @@ class _ImageViewerState extends State<ImageViewer> with WidgetsBindingObserver {
     final brightness =
         WidgetsBinding.instance.platformDispatcher.platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+    DateTime dateTime =
+        DateTime.tryParse(widget.model.uploadedDate ?? '')?.toLocal() ??
+            DateTime.now();
     return OrientationBuilder(builder: (context, orientation) {
       final isPortrait = orientation == Orientation.portrait;
       return Container(
@@ -104,8 +105,11 @@ class _ImageViewerState extends State<ImageViewer> with WidgetsBindingObserver {
                   appBar: AppBar(
                       automaticallyImplyLeading: false,
                       backgroundColor: isDarkMode ? Colors.black : Colors.white,
-                      flexibleSpace: imageHeader(widget.dateTime, widget.name,
-                          isDarkMode, () => Navigator.pop(context))),
+                      flexibleSpace: imageHeader(
+                          dateTime,
+                          widget.model.name ?? '',
+                          isDarkMode,
+                          () => Navigator.pop(context))),
                   body: Center(
                       child: ClipRRect(
                           borderRadius: widget.radius ?? BorderRadius.zero,
@@ -124,7 +128,8 @@ class _ImageViewerState extends State<ImageViewer> with WidgetsBindingObserver {
                               panEnabled: widget.panEnabled ?? false,
                               scaleEnabled: widget.scaleEnabled ?? true,
                               child: Image(
-                                  image: widget.imageProvider,
+                                  image: getImageSourceType(
+                                      widget.model.path ?? ''),
                                   fit: widget.fit ??
                                       (isPortrait
                                           ? BoxFit.fitWidth

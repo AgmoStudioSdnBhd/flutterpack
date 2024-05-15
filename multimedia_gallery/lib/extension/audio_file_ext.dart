@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:audioplayers/audioplayers.dart';
 
 /// Playing network file. This method required to be used to call the network file path to be played.
@@ -18,4 +19,16 @@ assetFile(String path) {
 /// Access to the directories is required.
 localFile(String path) {
   return DeviceFileSource(path);
+}
+
+getAudioSourceType(String? path) {
+  if (path != null) {
+    if (path.startsWith('https') || path.startsWith('http')) {
+      return UrlSource(path);
+    } else if (path.startsWith('assets')) {
+      return AssetSource(path);
+    } else {
+      return BytesSource(path as Uint8List);
+    }
+  }
 }

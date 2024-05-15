@@ -3,3 +3,4 @@ library extension;
 
 export 'package:multimedia_gallery/extension/audio_file_ext.dart';
 export 'package:multimedia_gallery/extension/video_file_ext.dart';
+export 'package:multimedia_gallery/extension/enum.dart';

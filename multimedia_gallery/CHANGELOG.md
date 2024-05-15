@@ -37,3 +37,9 @@
 ## 0.0.1+7
 
 - Fix pub dev readme gif not working
+
+## 0.0.2+8
+- Added base listing feature
+- Added skip next and skip previous audio.
+- Fix video timestamp.
+- Added buffering and replay icon to video player. 

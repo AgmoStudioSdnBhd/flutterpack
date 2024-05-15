@@ -3,15 +3,17 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:multimedia_gallery/extension/audio_file_ext.dart';
 import 'package:multimedia_gallery/extension/constants.dart';
+import 'package:multimedia_gallery/extension/image_file_ext.dart';
 import 'package:multimedia_gallery/extension/string_formatter.dart';
 import 'package:multimedia_gallery/audio/widget/image_background_gradient_widget.dart';
+import 'package:multimedia_gallery/listing/model/audio_model.dart';
 
 /// AudioViewer class to be used to get the audio player ui and function.
 class AudioViewer extends StatefulWidget {
-  final ImageProvider? image;
-  final String? songName;
-  final String? artistName;
+  final List<AudioModel> model;
+  final int selectedIndex;
   final EdgeInsets? screenPadding;
   final double? imageWidth;
   final BorderRadius? imageBorder;
@@ -22,14 +24,11 @@ class AudioViewer extends StatefulWidget {
   final Icon? icon;
   final ButtonStyle? iconStyle;
   final void Function()? onPressed;
-  final Source path;
 
   const AudioViewer(
       {Key? key,
-      required this.path,
-      required this.image,
-      required this.songName,
-      required this.artistName,
+      required this.model,
+      required this.selectedIndex,
       this.screenPadding,
       this.imageBorder,
       this.imageWidth,
@@ -89,6 +88,9 @@ class _AudioViewerState extends State<AudioViewer> {
   /// activity while the audio is played.
   StreamSubscription? playerStateChangeSubscription;
 
+  late int index = widget.selectedIndex;
+  late ImageProvider img = getImageSourceType(widget.model[index].image);
+
   @override
   void initState() {
     super.initState();
@@ -139,7 +141,8 @@ class _AudioViewerState extends State<AudioViewer> {
   /// This method is to play the audio file on [initState].
   /// This method will get the audio file path and play the audio file if the audio file can be found.
   void playAudio() {
-    player.play(widget.path);
+    Source source = getAudioSourceType(widget.model[index].path ?? '');
+    player.play(source);
   }
 
   /// This method is to set the state of the audio player to [play].
@@ -198,9 +201,7 @@ class _AudioViewerState extends State<AudioViewer> {
     /// The audio onPlayerComplete listener. This listener is to update the parameter
     /// after the audio player has complete played.
     playerCompleteSubscription = player.onPlayerComplete.listen((event) {
-      setState(() {
-        state = PlayerState.stopped;
-      });
+      onSkipNext();
     });
 
     /// The audio onPlayerComplete listener. This listener is to update the state
@@ -218,20 +219,45 @@ class _AudioViewerState extends State<AudioViewer> {
     player.seek(Duration(milliseconds: value.round()));
   }
 
+  void onSkipNext() {
+    setState(() {
+      state = PlayerState.stopped;
+      if (index + 1 == widget.model.length) {
+        index = 0;
+      } else {
+        index += 1;
+      }
+    });
+    img = getImageSourceType(widget.model[index].image);
+    player.play(UrlSource(widget.model[index].path ?? ''));
+  }
+
+  void onSkipPrevious() {
+    setState(() {
+      state = PlayerState.stopped;
+      if (index == 0) {
+        index = widget.model.length - 1;
+      } else {
+        index -= 1;
+      }
+    });
+    img = getImageSourceType(widget.model[index].image);
+    player.play(UrlSource(widget.model[index].path ?? ''));
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    return isGif(widget.image)
+    return isGif(widget.model[index].image ?? '')
         ? Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: widget.image ?? emptyImage,
-                    fit: BoxFit.none,
-                    repeat: ImageRepeat.repeat)),
+                    image: img,
+                    fit: BoxFit.fitHeight,
+                    repeat: ImageRepeat.noRepeat)),
             child: Stack(
                 children: [Container(color: Colors.black38), _buildContent()]))
-        : GradientBackground(
-            image: widget.image ?? emptyImage, child: _buildContent());
+        : GradientBackground(image: img, child: _buildContent());
   }
 
   Widget _buildContent() {
@@ -245,114 +271,149 @@ class _AudioViewerState extends State<AudioViewer> {
                 onPressed: () => Navigator.pop(context),
                 color: Colors.white)),
         body: SingleChildScrollView(
-          child: Container(
-              height: MediaQuery.of(context).size.height -
-                  MediaQuery.of(context).padding.top -
-                  kToolbarHeight,
-              padding: widget.screenPadding ?? padding16,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    isGif(widget.image)
-                        ? Expanded(
-                            flex: 2,
-                            child: SizedBox(
-                                height: MediaQuery.of(context).size.height / 2))
-                        : Flexible(
-                            child: FittedBox(
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Card(
-                                    elevation: 4,
-                                    clipBehavior: Clip.antiAlias,
-                                    child: Image(
-                                        image: widget.image ?? emptyImage,
-                                        width: MediaQuery.of(context)
-                                                .size
-                                                .shortestSide /
-                                            2,
-                                        fit: BoxFit.fill),
-                                  )),
-                            ),
-                          ),
-                    sizedBoxGapConstantH10,
-                    Flexible(
-                        flex: 2,
-                        child:
-                            Column(mainAxisSize: MainAxisSize.min, children: [
-                          SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              controller: _titleController,
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Flexible(
-                                        child: FittedBox(
-                                            fit: BoxFit.scaleDown,
-                                            child: Text(widget.songName ?? '',
-                                                style:
-                                                    widget.songNameTextStyle ??
-                                                        audioNameTextStyle)))
-                                  ])),
-                          SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              controller: _artistController,
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Flexible(
-                                        child: FittedBox(
-                                            fit: BoxFit.scaleDown,
-                                            child: Text(widget.artistName ?? '',
-                                                style: widget
-                                                        .artistNameTextStyle ??
-                                                    artistNameTextStyle)))
-                                  ])),
-                          sizedBoxGapConstantH10,
-                          SliderTheme(
-                              data: widget.sliderTheme ?? timeStampSlider,
-                              child: Slider(
-                                  value: sliderPosition ?? 0,
-                                  min: 0,
-                                  max: sliderMaxPosition ?? 0,
-                                  onChanged: (value) {
-                                    sliderPosition = value;
-                                  },
-                                  onChangeEnd: (value) {
-                                    seekTo(value);
-                                  })),
-                          Padding(
-                              padding: padding10,
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                        formatDuration(
-                                            audioTimestamp ?? Duration.zero),
-                                        style: timestampTextStyle),
-                                    Text(
-                                        formatDuration((audioDuration ??
-                                                Duration.zero) -
-                                            (audioTimestamp ?? Duration.zero)),
-                                        style: timestampTextStyle)
-                                  ])),
-                          IconButton.filled(
-                              onPressed: widget.onPressed ??
-                                  () {
-                                    setState(() {
-                                      (player.state.name == 'playing')
-                                          ? pauseAudio()
-                                          : resumeAudio();
-                                    });
-                                  },
-                              icon: widget.icon ??
-                                  Icon(player.state.name == 'playing'
-                                      ? Icons.pause
-                                      : Icons.play_arrow),
-                              style: widget.iconStyle ?? audioIconStyle)
-                        ]))
-                  ])),
-        ));
+            child: Container(
+                height: MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.top -
+                    kToolbarHeight,
+                padding: widget.screenPadding ?? padding16,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      isGif(widget.model[index].image ?? '')
+                          ? Flexible(
+                              child: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 2))
+                          : Flexible(
+                              child: FittedBox(
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Card(
+                                          elevation: 4,
+                                          clipBehavior: Clip.antiAlias,
+                                          child: Image(
+                                              image: img,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .shortestSide /
+                                                  2,
+                                              fit: BoxFit.fill))))),
+                      sizedBoxGapConstantH10,
+                      Flexible(
+                          flex: 2,
+                          child:
+                              Column(mainAxisSize: MainAxisSize.min, children: [
+                            SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                controller: _titleController,
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Flexible(
+                                          child: FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text(
+                                                  widget.model[index]
+                                                          .audioName ??
+                                                      '',
+                                                  style: widget
+                                                          .songNameTextStyle ??
+                                                      audioNameTextStyle)))
+                                    ])),
+                            SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                controller: _artistController,
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Flexible(
+                                          child: FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text(
+                                                  widget.model[index]
+                                                          .artistName ??
+                                                      '',
+                                                  style: widget
+                                                          .artistNameTextStyle ??
+                                                      artistNameTextStyle)))
+                                    ])),
+                            sizedBoxGapConstantH10,
+                            SliderTheme(
+                                data: widget.sliderTheme ?? timeStampSlider,
+                                child: Slider(
+                                    value: sliderPosition ?? 0,
+                                    min: 0,
+                                    max: sliderMaxPosition ?? 0,
+                                    onChanged: (value) {
+                                      sliderPosition = value;
+                                    },
+                                    onChangeEnd: (value) {
+                                      seekTo(value);
+                                    })),
+                            Padding(
+                                padding: padding10,
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                          formatDuration(
+                                              audioTimestamp ?? Duration.zero),
+                                          style: timestampTextStyle),
+                                      Text(
+                                          formatDuration(
+                                              (audioDuration ?? Duration.zero) -
+                                                  (audioTimestamp ??
+                                                      Duration.zero)),
+                                          style: timestampTextStyle)
+                                    ])),
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  IconButton(
+                                      onPressed: onSkipPrevious,
+                                      icon: const Icon(Icons.skip_previous),
+                                      style: widget.iconStyle ??
+                                          audioIconStyle.copyWith(
+                                              backgroundColor:
+                                                  const MaterialStatePropertyAll<
+                                                          Color>(
+                                                      Colors.transparent),
+                                              iconColor:
+                                                  const MaterialStatePropertyAll<
+                                                      Color>(Colors.white70))),
+                                  IconButton.filled(
+                                      onPressed: widget.onPressed ??
+                                          () {
+                                            setState(() {
+                                              (player.state.name == 'playing')
+                                                  ? pauseAudio()
+                                                  : resumeAudio();
+                                            });
+                                          },
+                                      icon: widget.icon ??
+                                          Icon(player.state.name == 'playing'
+                                              ? Icons.pause
+                                              : Icons.play_arrow),
+                                      style:
+                                          widget.iconStyle ?? audioIconStyle),
+                                  IconButton(
+                                      onPressed: onSkipNext,
+                                      icon: const Icon(Icons.skip_next),
+                                      style: widget.iconStyle ??
+                                          audioIconStyle.copyWith(
+                                              backgroundColor:
+                                                  const MaterialStatePropertyAll<
+                                                          Color>(
+                                                      Colors.transparent),
+                                              iconColor:
+                                                  const MaterialStatePropertyAll<
+                                                      Color>(Colors.white70)))
+                                ])
+                          ]))
+                    ]))));
   }
 }

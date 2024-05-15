@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multimedia_gallery/listing/model/video_model.dart';
 import 'package:multimedia_gallery/multimedia_gallery.dart';
 
 class VideoScreen extends StatelessWidget {
@@ -8,7 +9,14 @@ class VideoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: VideoViewer(
-            path: networkVideo(
-                'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4')));
+      model: [
+        VideoModel(
+            path:
+                'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+            name: 'Butterfly',
+            uploadedDate: DateTime.now().toString())
+      ],
+      selected: 0,
+    ));
   }
 }

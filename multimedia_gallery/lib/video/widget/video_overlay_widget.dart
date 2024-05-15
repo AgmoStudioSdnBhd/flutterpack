@@ -37,6 +37,18 @@ class VideoOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget centerIcon() {
+      if (controller.value.isPlaying) {
+        return const Icon(Icons.pause);
+      } else if (controller.value.isBuffering) {
+        return loadingIndicator();
+      } else if (controller.value.isCompleted) {
+        return const Icon(Icons.replay);
+      } else {
+        return const Icon(Icons.play_arrow);
+      }
+    }
+
     return Stack(children: [
       Positioned.fill(
         child: Container(color: overlayColor ?? Colors.black26),
@@ -50,8 +62,7 @@ class VideoOverlay extends StatelessWidget {
                   color: backButtonColor ?? Colors.white)),
       Center(
           child: IconButton(
-              icon: Icon(
-                  controller.value.isPlaying ? Icons.pause : Icons.play_arrow),
+              icon: centerIcon(),
               iconSize: iconSize ?? 50,
               color: iconColor ?? Colors.white,
               onPressed: onPlayPressed)),
