@@ -17,11 +17,13 @@ List of features' supported platform
 
 This feature support image panning, zoom in and out by pinching the image. This feature also supports for light mode and dark mode detector.
 
-  - In Light Mode
-    ![Image Viewer Example](https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/gif_audio_viewer_example.gif)
+- In Light Mode
 
-  - In Dark Mode
-    ![Image Viewer Example](https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_viewer_dark_mode_example.gif)
+  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/gif_audio_viewer_example.gif" alt="drawing" width="200"/>
+
+- In Dark Mode
+
+  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_viewer_dark_mode_example.gif" alt="drawing" width="200"/>
 
 ### Video Viewer
 
@@ -33,9 +35,9 @@ It also include:
 - Pause video: Able to pause the video
 - Duration slider: Able to slide the video to desire timestamp
 
-  ![Image Viewer Example](https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/play_pause_video_example.gif)
+  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/play_pause_video_example.gif" alt="drawing" width="200"/>
 
-  ![Image Viewer Example](https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/slider_example.gif)
+  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/slider_example.gif" alt="drawing" width="400"/>
 
 ### Audio Viewer
 
@@ -45,11 +47,11 @@ Feature also include different user interface for different image file type
 
 - Animated image
 
-  ![Image Viewer Example](https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/gif_audio_viewer_example.gif)
+  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/gif_audio_viewer_example.gif" alt="drawing" width="200"/>
 
 - Normal image
 
-  ![Image Viewer Example](https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_audio_viewer_example.gif)
+  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_audio_viewer_example.gif" alt="drawing" width="200"/>
 
 ### Requirements
 
