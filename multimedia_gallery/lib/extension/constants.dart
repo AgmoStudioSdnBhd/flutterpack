@@ -36,9 +36,9 @@ const EdgeInsets padding6 = EdgeInsets.all(6);
 
 /// audio icon button style
 const ButtonStyle audioIconStyle = ButtonStyle(
-    backgroundColor: WidgetStatePropertyAll<Color>(Colors.white),
-    iconColor: WidgetStatePropertyAll<Color>(Colors.black),
-    iconSize: WidgetStatePropertyAll(30));
+    backgroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+    iconColor: MaterialStatePropertyAll<Color>(Colors.black),
+    iconSize: MaterialStatePropertyAll(30));
 
 /// constant gradient color
 const Color lightVibrantBlue = Color.fromRGBO(197, 231, 255, 1.0);

@@ -378,11 +378,11 @@ class _AudioViewerState extends State<AudioViewer> {
                                       style: widget.iconStyle ??
                                           audioIconStyle.copyWith(
                                               backgroundColor:
-                                                  const WidgetStatePropertyAll<
+                                                  const MaterialStatePropertyAll<
                                                           Color>(
                                                       Colors.transparent),
                                               iconColor:
-                                                  const WidgetStatePropertyAll<
+                                                  const MaterialStatePropertyAll<
                                                       Color>(Colors.white70))),
                                   IconButton.filled(
                                       onPressed: widget.onPressed ??
@@ -405,11 +405,11 @@ class _AudioViewerState extends State<AudioViewer> {
                                       style: widget.iconStyle ??
                                           audioIconStyle.copyWith(
                                               backgroundColor:
-                                                  const WidgetStatePropertyAll<
+                                                  const MaterialStatePropertyAll<
                                                           Color>(
                                                       Colors.transparent),
                                               iconColor:
-                                                  const WidgetStatePropertyAll<
+                                                  const MaterialStatePropertyAll<
                                                       Color>(Colors.white70)))
                                 ])
                           ]))
