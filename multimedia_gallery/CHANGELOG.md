@@ -43,3 +43,7 @@
 - Added skip next and skip previous audio.
 - Fix video timestamp.
 - Added buffering and replay icon to video player. 
+
+## 0.0.2+9
+- Fix linter issue (Upgrade package and flutter version)
+- Add user defined app bar (portraitAppBar)

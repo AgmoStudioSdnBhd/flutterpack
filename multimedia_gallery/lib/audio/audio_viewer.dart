@@ -26,7 +26,7 @@ class AudioViewer extends StatefulWidget {
   final void Function()? onPressed;
 
   const AudioViewer(
-      {Key? key,
+      {super.key,
       required this.model,
       required this.selectedIndex,
       this.screenPadding,
@@ -38,8 +38,7 @@ class AudioViewer extends StatefulWidget {
       this.sliderTheme,
       this.icon,
       this.iconStyle,
-      this.onPressed})
-      : super(key: key);
+      this.onPressed});
 
   @override
   State<AudioViewer> createState() => _AudioViewerState();
@@ -379,11 +378,11 @@ class _AudioViewerState extends State<AudioViewer> {
                                       style: widget.iconStyle ??
                                           audioIconStyle.copyWith(
                                               backgroundColor:
-                                                  const MaterialStatePropertyAll<
+                                                  const WidgetStatePropertyAll<
                                                           Color>(
                                                       Colors.transparent),
                                               iconColor:
-                                                  const MaterialStatePropertyAll<
+                                                  const WidgetStatePropertyAll<
                                                       Color>(Colors.white70))),
                                   IconButton.filled(
                                       onPressed: widget.onPressed ??
@@ -406,11 +405,11 @@ class _AudioViewerState extends State<AudioViewer> {
                                       style: widget.iconStyle ??
                                           audioIconStyle.copyWith(
                                               backgroundColor:
-                                                  const MaterialStatePropertyAll<
+                                                  const WidgetStatePropertyAll<
                                                           Color>(
                                                       Colors.transparent),
                                               iconColor:
-                                                  const MaterialStatePropertyAll<
+                                                  const WidgetStatePropertyAll<
                                                       Color>(Colors.white70)))
                                 ])
                           ]))

@@ -21,7 +21,8 @@ class VideoViewer extends StatefulWidget {
       this.onSliderChange,
       this.videoAspectRatio,
       this.onVideoScreenTap,
-      this.backgroundColor});
+      this.backgroundColor,
+      this.portraitAppBar});
 
   final List<VideoModel> model;
   final int selected;
@@ -32,6 +33,7 @@ class VideoViewer extends StatefulWidget {
   final double? videoAspectRatio;
   final void Function()? onVideoScreenTap;
   final Color? backgroundColor;
+  final AppBar? portraitAppBar;
 
   @override
   State<VideoViewer> createState() => _VideoViewerState();
@@ -122,13 +124,14 @@ class _VideoViewerState extends State<VideoViewer> {
           backgroundColor: widget.backgroundColor ??
               (isDarkMode ? Colors.black : Colors.white),
           appBar: isPortrait
-              ? AppBar(
-                  leading: IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: backButton,
-                    color: isDarkMode ? Colors.white : Colors.black87,
-                  ),
-                  backgroundColor: Colors.transparent)
+              ? widget.portraitAppBar ??
+                  AppBar(
+                      leading: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: backButton,
+                        color: isDarkMode ? Colors.white : Colors.black87,
+                      ),
+                      backgroundColor: Colors.transparent)
               : null,
           body: FutureBuilder(
               future: initializeVideoPlayerFuture,
