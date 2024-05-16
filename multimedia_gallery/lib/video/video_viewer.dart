@@ -22,7 +22,8 @@ class VideoViewer extends StatefulWidget {
       this.videoAspectRatio,
       this.onVideoScreenTap,
       this.backgroundColor,
-      this.portraitAppBar});
+      this.portraitAppBar,
+      this.overlayColor});
 
   final List<VideoModel> model;
   final int selected;
@@ -34,6 +35,7 @@ class VideoViewer extends StatefulWidget {
   final void Function()? onVideoScreenTap;
   final Color? backgroundColor;
   final AppBar? portraitAppBar;
+  final Color? overlayColor;
 
   @override
   State<VideoViewer> createState() => _VideoViewerState();
@@ -49,10 +51,10 @@ class _VideoViewerState extends State<VideoViewer> {
 
   /// The show overlay timer. This timer object is call for the video overlay
   /// to hide after the overlay widgets is shown for 5 seconds.
-  late Timer disableShowIconTimer;
+  Timer? disableShowIconTimer;
 
   /// The hide and show for video overlay widgets.
-  bool isShowIcon = false;
+  bool isShowIcon = true;
 
   /// The video player current timestamp.
   Duration currentPosition = Duration.zero;
@@ -64,7 +66,9 @@ class _VideoViewerState extends State<VideoViewer> {
     playVideo();
     controller.addListener(() {
       setState(() {
+        controller.value;
         currentPosition = controller.value.position;
+        onVideoComplete();
       });
     });
   }
@@ -92,11 +96,44 @@ class _VideoViewerState extends State<VideoViewer> {
     });
   }
 
+  void showIconTimerFunc() {
+    disableShowIconTimer?.cancel();
+    if (!controller.value.isCompleted ||
+        controller.value.isLooping ||
+        controller.value.isInitialized) {
+      disableShowIconTimer?.tick;
+      disableShowIconTimer = Timer.periodic(
+          const Duration(seconds: 5),
+          (timer) => setState(() {
+                isShowIcon = false;
+              }));
+    }
+  }
+
+  void toggleOverlay() {
+    isShowIcon = !isShowIcon;
+    showIconTimerFunc();
+  }
+
+  void onVideoComplete() {
+    if (controller.value.position.inMilliseconds.toDouble() ==
+            controller.value.duration.inMilliseconds.toDouble() &&
+        controller.value.isCompleted) {
+      setState(() {
+        isShowIcon = true;
+        disableShowIconTimer?.cancel();
+      });
+    }
+  }
+
   /// The video player state controller. This method is to update the state of the
   /// video to [controller.play]. This method only can be invoke if the state of the
   /// video player is [controller.pause] and the path is [notnull].
   void playVideo() {
-    controller.play();
+    setState(() {
+      controller.play();
+      showIconTimerFunc();
+    });
   }
 
   /// The video player state controller. This method is to update the state of the
@@ -164,23 +201,22 @@ class _VideoViewerState extends State<VideoViewer> {
 
   Widget _buildVideo(bool isPortrait) {
     return InkWell(
-        onTap: widget.onVideoScreenTap ??
-            () {
-              setState(() {
-                isShowIcon = !isShowIcon;
-              });
-            },
+        onTap: widget.onVideoScreenTap ?? toggleOverlay,
         child: Stack(children: [
           VideoPlayer(controller),
           Visibility(
               visible: isShowIcon,
               child: VideoOverlay(
+                overlayColor: widget.overlayColor,
                 isPortrait: isPortrait,
                 controller: controller,
                 onPlayPressed: () {
                   setState(() {
                     if (controller.value.isPlaying) {
                       pauseVideo();
+                    }
+                    if (controller.value.isCompleted) {
+                      playVideo();
                     } else {
                       playVideo();
                     }
