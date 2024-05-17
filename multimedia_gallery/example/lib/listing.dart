@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:multimedia_gallery/listing/main_listing.dart';
+import 'package:multimedia_gallery/multimedia_gallery.dart';
 
 class Listing extends StatefulWidget {
   const Listing({super.key});

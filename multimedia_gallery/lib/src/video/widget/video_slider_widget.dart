@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:multimedia_gallery/extension/constants.dart';
-import 'package:multimedia_gallery/extension/string_formatter.dart';
+import 'package:multimedia_gallery/src/extension/constants.dart';
+import 'package:multimedia_gallery/src/extension/string_formatter.dart';
 
 /// The video duration slider widget. This widget used to display the
 /// slider widget to change ang show the timestamp of the video played.

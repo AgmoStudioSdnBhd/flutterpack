@@ -3,8 +3,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:multimedia_gallery/extension/constants.dart';
-import 'package:multimedia_gallery/listing/model/video_model.dart';
+import 'package:multimedia_gallery/src/extension/extension.dart';
+import 'package:multimedia_gallery/src/listing/model/model.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 class VideoCard extends StatefulWidget {

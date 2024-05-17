@@ -21,6 +21,8 @@ localFile(String path) {
   return DeviceFileSource(path);
 }
 
+/// The source definition function. To automatically detect the audio file type when the user
+/// entering the audio file.
 getAudioSourceType(String? path) {
   if (path != null) {
     if (path.startsWith('https') || path.startsWith('http')) {

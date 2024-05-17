@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:multimedia_gallery/extension/constants.dart';
-import 'package:multimedia_gallery/extension/image_file_ext.dart';
-import 'package:multimedia_gallery/listing/model/audio_model.dart';
+import 'package:multimedia_gallery/src/extension/extension.dart';
+import 'package:multimedia_gallery/src/listing/model/audio_model.dart';
 
 class AudioCard extends StatelessWidget {
   const AudioCard({super.key, required this.model, required this.isLast});

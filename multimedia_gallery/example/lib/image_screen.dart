@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multimedia_gallery/image/image_viewer.dart';
-import 'package:multimedia_gallery/listing/model/image_model.dart';
+import 'package:multimedia_gallery/multimedia_gallery.dart';
 
 class ImageScreen extends StatelessWidget {
   const ImageScreen({super.key});

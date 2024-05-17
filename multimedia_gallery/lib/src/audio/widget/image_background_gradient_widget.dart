@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multimedia_gallery/extension/constants.dart';
+import 'package:multimedia_gallery/src/extension/extension.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 /// The gradient background class. This class object is define to use as

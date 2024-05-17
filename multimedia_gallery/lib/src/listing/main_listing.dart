@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:multimedia_gallery/extension/constants.dart';
-import 'package:multimedia_gallery/listing/model/audio_model.dart';
-import 'package:multimedia_gallery/listing/model/video_model.dart';
-import 'package:multimedia_gallery/listing/widget/audio_card.dart';
-import 'package:multimedia_gallery/listing/viewmodel/listing_view_model.dart';
-import 'package:multimedia_gallery/listing/widget/image_card.dart';
-import 'package:multimedia_gallery/listing/widget/video_card.dart';
+import 'package:multimedia_gallery/src/listing/widget/audio_card.dart';
+import 'package:multimedia_gallery/src/listing/viewmodel/listing_view_model.dart';
+import 'package:multimedia_gallery/src/listing/widget/image_card.dart';
+import 'package:multimedia_gallery/src/listing/widget/video_card.dart';
 import 'package:multimedia_gallery/multimedia_gallery.dart';
 import 'package:provider/provider.dart';
 
@@ -77,11 +74,7 @@ class _MainListingState extends State<_MainListing> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [mainListingBlack, mainListingBlue])),
+        decoration: listingBackgroundStyle,
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
@@ -91,9 +84,7 @@ class _MainListingState extends State<_MainListing> {
                 title: Padding(
                     padding: padding16,
                     child: Text(type.localizeTitle(),
-                        style: const TextStyle(
-                            color: Colors.white70,
-                            fontWeight: FontWeight.w800)))),
+                        style: listingTitleTextStyle))),
             bottomNavigationBar: BottomNavigationBar(
                 onTap: (index) {
                   setState(() {

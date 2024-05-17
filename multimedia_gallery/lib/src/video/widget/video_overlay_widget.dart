@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:multimedia_gallery/extension/constants.dart';
-import 'package:multimedia_gallery/extension/string_formatter.dart';
-import 'package:multimedia_gallery/video/widget/video_slider_widget.dart';
+import 'package:multimedia_gallery/src/extension/constants.dart';
+import 'package:multimedia_gallery/src/extension/string_formatter.dart';
+import 'package:multimedia_gallery/src/video/widget/video_slider_widget.dart';
 import 'package:video_player/video_player.dart';
 
 /// The video overlay widget. This widget is used to display the play, pause button,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:multimedia_gallery/extension/image_file_ext.dart';
-import 'package:multimedia_gallery/listing/model/image_model.dart';
+import 'package:multimedia_gallery/src/extension/extension.dart';
+import 'package:multimedia_gallery/src/listing/model/image_model.dart';
 
 class ImageCard extends StatelessWidget {
   const ImageCard({super.key, required this.model});

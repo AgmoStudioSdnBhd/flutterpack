@@ -3,12 +3,9 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:multimedia_gallery/extension/audio_file_ext.dart';
-import 'package:multimedia_gallery/extension/constants.dart';
-import 'package:multimedia_gallery/extension/image_file_ext.dart';
-import 'package:multimedia_gallery/extension/string_formatter.dart';
-import 'package:multimedia_gallery/audio/widget/image_background_gradient_widget.dart';
-import 'package:multimedia_gallery/listing/model/audio_model.dart';
+import 'package:multimedia_gallery/src/extension/extension.dart';
+import 'package:multimedia_gallery/src/audio/widget/image_background_gradient_widget.dart';
+import 'package:multimedia_gallery/src/listing/model/audio_model.dart';
 
 /// AudioViewer class to be used to get the audio player ui and function.
 class AudioViewer extends StatefulWidget {
@@ -122,16 +119,16 @@ class _AudioViewerState extends State<AudioViewer> {
   /// The text auto scroller. This scroll controller is to automate
   /// the text scroll from left to right the text is overflowing.
   void _startAutoScroll(ScrollController controller) {
-    Timer.periodic(const Duration(seconds: 10), (_) {
+    Timer.periodic(sec5, (_) {
       if (controller.hasClients) {
         double maxScrollExtent = controller.position.maxScrollExtent;
         double minScrollExtent = controller.position.minScrollExtent;
         if (controller.offset != maxScrollExtent) {
           controller.animateTo(maxScrollExtent,
-              duration: const Duration(seconds: 5), curve: Curves.linear);
+              duration: sec12, curve: Curves.linear);
         } else {
           controller.animateTo(minScrollExtent,
-              duration: const Duration(seconds: 5), curve: Curves.linear);
+              duration: sec10, curve: Curves.linear);
         }
       }
     });
@@ -374,16 +371,9 @@ class _AudioViewerState extends State<AudioViewer> {
                                 children: [
                                   IconButton(
                                       onPressed: onSkipPrevious,
-                                      icon: const Icon(Icons.skip_previous),
+                                      icon: skipPrevIcon,
                                       style: widget.iconStyle ??
-                                          audioIconStyle.copyWith(
-                                              backgroundColor:
-                                                  const MaterialStatePropertyAll<
-                                                          Color>(
-                                                      Colors.transparent),
-                                              iconColor:
-                                                  const MaterialStatePropertyAll<
-                                                      Color>(Colors.white70))),
+                                          secondaryIconStyle),
                                   IconButton.filled(
                                       onPressed: widget.onPressed ??
                                           () {
@@ -398,19 +388,12 @@ class _AudioViewerState extends State<AudioViewer> {
                                               ? Icons.pause
                                               : Icons.play_arrow),
                                       style:
-                                          widget.iconStyle ?? audioIconStyle),
+                                          widget.iconStyle ?? primaryIconStyle),
                                   IconButton(
                                       onPressed: onSkipNext,
-                                      icon: const Icon(Icons.skip_next),
+                                      icon: skipNextIcon,
                                       style: widget.iconStyle ??
-                                          audioIconStyle.copyWith(
-                                              backgroundColor:
-                                                  const MaterialStatePropertyAll<
-                                                          Color>(
-                                                      Colors.transparent),
-                                              iconColor:
-                                                  const MaterialStatePropertyAll<
-                                                      Color>(Colors.white70)))
+                                          secondaryIconStyle)
                                 ])
                           ]))
                     ]))));

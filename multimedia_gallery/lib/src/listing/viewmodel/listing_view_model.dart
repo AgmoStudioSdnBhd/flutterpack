@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:multimedia_gallery/listing/model/image_model.dart';
-import 'package:multimedia_gallery/listing/model/video_model.dart';
-import 'package:multimedia_gallery/listing/repository/listing_repo.dart';
-import 'package:multimedia_gallery/listing/model/audio_model.dart';
+import 'package:multimedia_gallery/src/listing/model/image_model.dart';
+import 'package:multimedia_gallery/src/listing/model/video_model.dart';
+import 'package:multimedia_gallery/src/listing/repository/listing_repo.dart';
+import 'package:multimedia_gallery/src/listing/model/audio_model.dart';
 
 class MediaProvider extends ChangeNotifier {
   List<AudioModel>? fetchedAudio;

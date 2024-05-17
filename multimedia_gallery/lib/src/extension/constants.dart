@@ -14,6 +14,8 @@ const TextStyle artistNameTextStyle =
     TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white70);
 const TextStyle timestampTextStyle =
     TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
+const TextStyle listingTitleTextStyle =
+    TextStyle(color: Colors.white70, fontWeight: FontWeight.w800);
 
 /// constant loading indicator
 Widget loadingIndicator() => const Center(
@@ -35,9 +37,13 @@ const EdgeInsets padding10 = EdgeInsets.all(10);
 const EdgeInsets padding6 = EdgeInsets.all(6);
 
 /// audio icon button style
-const ButtonStyle audioIconStyle = ButtonStyle(
+const ButtonStyle primaryIconStyle = ButtonStyle(
     backgroundColor: MaterialStatePropertyAll<Color>(Colors.white),
     iconColor: MaterialStatePropertyAll<Color>(Colors.black),
+    iconSize: MaterialStatePropertyAll(30));
+const ButtonStyle secondaryIconStyle = ButtonStyle(
+    backgroundColor: MaterialStatePropertyAll<Color>(Colors.transparent),
+    iconColor: MaterialStatePropertyAll<Color>(Colors.white70),
     iconSize: MaterialStatePropertyAll(30));
 
 /// constant gradient color
@@ -48,6 +54,12 @@ const Color mainListingBlue = Color.fromARGB(255, 36, 52, 74);
 
 /// constant back button
 const Icon backButton = Icon(Icons.arrow_back);
+const Icon skipPrevIcon = Icon(Icons.skip_previous);
+const Icon skipNextIcon = Icon(Icons.skip_next);
+const Icon pauseIcon = Icon(Icons.pause);
+const Icon playIcon = Icon(Icons.play_arrow);
+const Icon replayIcon = Icon(Icons.replay);
+const Icon photoLibIcon = Icon(Icons.photo_library);
 
 /// constant video aspect ratio
 const double videoAspectRatio = 16 / 9;
@@ -63,3 +75,18 @@ const LinearGradient activeIconGradient = LinearGradient(
     begin: Alignment.topRight,
     end: Alignment.bottomLeft,
     colors: [mainListingBlue, Color.fromARGB(255, 107, 192, 255)]);
+
+///constant duration
+const Duration sec2 = Duration(seconds: 2);
+const Duration sec5 = Duration(seconds: 5);
+const Duration sec10 = Duration(seconds: 10);
+const Duration sec12 = Duration(seconds: 12);
+
+///constant box decoration
+const BoxDecoration listingBackgroundStyle = BoxDecoration(
+    gradient: LinearGradient(
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
+        colors: [mainListingBlack, mainListingBlue]));
+BoxDecoration activeNavIconStyle = BoxDecoration(
+    borderRadius: BorderRadius.circular(50), gradient: activeIconGradient);

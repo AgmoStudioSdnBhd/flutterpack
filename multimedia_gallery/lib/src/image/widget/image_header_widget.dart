@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multimedia_gallery/extension/constants.dart';
-import 'package:multimedia_gallery/extension/string_formatter.dart';
+import 'package:multimedia_gallery/src/extension/extension.dart';
 
 /// image viewer app bar. Consist of date, time and image name.
 /// This widget also include device dark mode detection for different UI.

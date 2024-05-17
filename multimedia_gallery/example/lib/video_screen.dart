@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:multimedia_gallery/listing/model/video_model.dart';
 import 'package:multimedia_gallery/multimedia_gallery.dart';
 
 class VideoScreen extends StatelessWidget {
