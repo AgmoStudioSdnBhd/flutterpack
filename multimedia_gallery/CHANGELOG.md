@@ -1,5 +1,5 @@
 ## 0.0.2+12
-- Fix video overlay flickerring issue
+- Fix video overlay flickering issue
 - File clean up
 
 ## 0.0.2+11

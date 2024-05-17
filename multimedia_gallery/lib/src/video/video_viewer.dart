@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:multimedia_gallery/extension/constants.dart';
-import 'package:multimedia_gallery/extension/video_file_ext.dart';
-import 'package:multimedia_gallery/listing/model/video_model.dart';
-import 'package:multimedia_gallery/video/widget/video_overlay_widget.dart';
+import 'package:multimedia_gallery/src/extension/constants.dart';
+import 'package:multimedia_gallery/src/extension/video_file_ext.dart';
+import 'package:multimedia_gallery/src/listing/model/video_model.dart';
+import 'package:multimedia_gallery/src/video/widget/video_overlay_widget.dart';
 import 'package:video_player/video_player.dart';
 
 /// The VideoViewer class. This class can be called when need to display the video
@@ -42,7 +42,10 @@ class VideoViewer extends StatefulWidget {
 }
 
 class _VideoViewerState extends State<VideoViewer> {
+  /// The video player controller data definition
   late VideoPlayerController controller;
+
+  /// The index selected from the listing.
   late int index = widget.selected;
 
   /// The [controller.inintialize] method. Use to call for initialize the
@@ -66,7 +69,7 @@ class _VideoViewerState extends State<VideoViewer> {
     playVideo();
     controller.addListener(() {
       setState(() {
-        controller.value;
+        controller.value.isPlaying;
         currentPosition = controller.value.position;
         onVideoComplete();
       });
@@ -79,9 +82,11 @@ class _VideoViewerState extends State<VideoViewer> {
     super.dispose();
   }
 
+  /// Initialize the video controller.
   void initializeVideoController() {
     controller = networkVideo(widget.model[index].path ?? '');
     initializeVideoPlayerFuture = controller.initialize();
+    showIconTimerFunc();
   }
 
   /// The video duration getter. To get the duration of the audio file.
@@ -96,32 +101,46 @@ class _VideoViewerState extends State<VideoViewer> {
     });
   }
 
+  /// The show video overlay timer function. This function is invoked when
+  /// the video overlay is being toggle. If the video overlay is shown,
+  /// the timer with 5 seconds duration will be triggered and will hide the
+  /// video overlay after 5 seconds.
   void showIconTimerFunc() {
-    disableShowIconTimer?.cancel();
-    if (!controller.value.isCompleted ||
-        controller.value.isLooping ||
-        controller.value.isInitialized) {
-      disableShowIconTimer?.tick;
-      disableShowIconTimer = Timer.periodic(
-          const Duration(seconds: 5),
-          (timer) => setState(() {
-                isShowIcon = false;
-              }));
+    if (controller.value.position.inMilliseconds.toDouble() <=
+        controller.value.duration.inMilliseconds.toDouble()) {
+      disableShowIconTimer?.cancel();
+      disableShowIconTimer = Timer.periodic(sec2, (timer) {
+        setState(() {
+          isShowIcon = false;
+        });
+        timer.cancel();
+      });
+    } else if (controller.value.position.inMilliseconds.toDouble() ==
+        controller.value.duration.inMilliseconds.toDouble()) {
+      onVideoComplete();
+      disableShowIconTimer?.cancel();
     }
   }
 
+  /// The video overlay toggle function. To toggle the video overlay to show/hide.
+  /// This function will be invoked when the video overlay is tap. This will
+  /// show/hide the video overlay and triggered the timer function [showIconTimerFunc].
   void toggleOverlay() {
-    isShowIcon = !isShowIcon;
+    setState(() {
+      isShowIcon = !isShowIcon;
+    });
     showIconTimerFunc();
   }
 
+  /// The video player state listener function. Will be invoke when the video start to play.
+  /// When the video player controller state is [isCompleted] then this function will be
+  /// invoked.
   void onVideoComplete() {
     if (controller.value.position.inMilliseconds.toDouble() ==
             controller.value.duration.inMilliseconds.toDouble() &&
         controller.value.isCompleted) {
       setState(() {
         isShowIcon = true;
-        disableShowIconTimer?.cancel();
       });
     }
   }
@@ -130,10 +149,8 @@ class _VideoViewerState extends State<VideoViewer> {
   /// video to [controller.play]. This method only can be invoke if the state of the
   /// video player is [controller.pause] and the path is [notnull].
   void playVideo() {
-    setState(() {
-      controller.play();
-      showIconTimerFunc();
-    });
+    controller.play();
+    showIconTimerFunc();
   }
 
   /// The video player state controller. This method is to update the state of the
@@ -164,10 +181,9 @@ class _VideoViewerState extends State<VideoViewer> {
               ? widget.portraitAppBar ??
                   AppBar(
                       leading: IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: backButton,
-                        color: isDarkMode ? Colors.white : Colors.black87,
-                      ),
+                          onPressed: () => Navigator.pop(context),
+                          icon: backButton,
+                          color: isDarkMode ? Colors.white : Colors.black87),
                       backgroundColor: Colors.transparent)
               : null,
           body: FutureBuilder(
@@ -178,7 +194,7 @@ class _VideoViewerState extends State<VideoViewer> {
                         ? _buildPortraitVideo(isPortrait)
                         : _buildLandscapeVideo(isPortrait)
                     : Container(
-                        color: Colors.white54,
+                        color: Colors.black54,
                         alignment: Alignment.topCenter,
                         child: loadingIndicator());
               }));
@@ -207,28 +223,24 @@ class _VideoViewerState extends State<VideoViewer> {
           Visibility(
               visible: isShowIcon,
               child: VideoOverlay(
-                overlayColor: widget.overlayColor,
-                isPortrait: isPortrait,
-                controller: controller,
-                onPlayPressed: () {
-                  setState(() {
-                    if (controller.value.isPlaying) {
-                      pauseVideo();
-                    }
-                    if (controller.value.isCompleted) {
-                      playVideo();
-                    } else {
-                      playVideo();
-                    }
-                  });
-                },
-                onSliderChange: (value) {
-                  setState(() => value);
-                },
-                onChangeEnd: (value) {
-                  _seekTo(value);
-                },
-              ))
+                  overlayColor: widget.overlayColor,
+                  isPortrait: isPortrait,
+                  controller: controller,
+                  onPlayPressed: () {
+                    setState(() {
+                      if (controller.value.isPlaying) {
+                        pauseVideo();
+                      } else {
+                        playVideo();
+                      }
+                    });
+                  },
+                  onSliderChange: (value) {
+                    setState(() => value);
+                  },
+                  onChangeEnd: (value) {
+                    _seekTo(value);
+                  }))
         ]));
   }
 }
