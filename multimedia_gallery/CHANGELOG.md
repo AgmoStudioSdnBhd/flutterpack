@@ -1,3 +1,8 @@
+## 0.0.3+13
+- Updated readme.md
+- Added documentation
+- Upgrade package anf flutter version
+
 ## 0.0.2+12
 - Fix video overlay flickering issue
 - File clean up
