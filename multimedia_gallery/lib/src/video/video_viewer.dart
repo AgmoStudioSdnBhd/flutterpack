@@ -9,7 +9,7 @@ import 'package:multimedia_gallery/src/video/widget/video_overlay_widget.dart';
 import 'package:video_player/video_player.dart';
 
 /// The VideoViewer class. This class can be called when need to display the video
-/// player. Required parameter: [path]
+/// player. Required parameter: [model], [selected].
 class VideoViewer extends StatefulWidget {
   const VideoViewer(
       {super.key,
@@ -42,14 +42,14 @@ class VideoViewer extends StatefulWidget {
 }
 
 class _VideoViewerState extends State<VideoViewer> {
-  /// The video player controller data definition
+  /// The video player controller data definition.
   late VideoPlayerController controller;
 
   /// The index selected from the listing.
   late int index = widget.selected;
 
   /// The [controller.inintialize] method. Use to call for initialize the
-  /// video player controller
+  /// video player controller.
   late Future<void> initializeVideoPlayerFuture;
 
   /// The show overlay timer. This timer object is call for the video overlay
@@ -109,10 +109,12 @@ class _VideoViewerState extends State<VideoViewer> {
     if (controller.value.position.inMilliseconds.toDouble() <=
         controller.value.duration.inMilliseconds.toDouble()) {
       disableShowIconTimer?.cancel();
-      disableShowIconTimer = Timer.periodic(sec2, (timer) {
-        setState(() {
-          isShowIcon = false;
-        });
+      disableShowIconTimer = Timer.periodic(sec5, (timer) {
+        if(mounted) {
+          setState(() {
+            isShowIcon = false;
+          });
+        }
         timer.cancel();
       });
     } else if (controller.value.position.inMilliseconds.toDouble() ==

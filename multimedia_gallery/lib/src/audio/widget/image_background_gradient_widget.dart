@@ -13,6 +13,7 @@ class GradientBackground extends StatefulWidget {
   final ImageProvider image;
   final Widget child;
 
+
   @override
   State<GradientBackground> createState() => _GradientBackgroundState();
 }
@@ -24,6 +25,18 @@ class _GradientBackgroundState extends State<GradientBackground> {
   @override
   void initState() {
     super.initState();
+    getColorPalette();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    getColorPalette();
+  }
+
+  @override
+  void didUpdateWidget(covariant GradientBackground oldWidget) {
+    super.didUpdateWidget(oldWidget);
     getColorPalette();
   }
 

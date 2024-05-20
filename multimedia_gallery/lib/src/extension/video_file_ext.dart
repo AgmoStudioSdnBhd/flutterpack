@@ -19,6 +19,8 @@ localVideo(String path) {
   return VideoPlayerController.file(File(path));
 }
 
+/// The source definition function. To automatically detect the video file type when the user
+/// entering the video file.
 getVideoSourceType(String? path) {
   if (path != null) {
     if (path.startsWith('https') || path.startsWith('http')) {

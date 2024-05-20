@@ -1,36 +1,27 @@
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
 import 'package:multimedia_gallery/multimedia_gallery.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 
+/// The listing repository. This repository is to map the data into model.
 class ListingRepository extends ChangeNotifier {
+
+  /// Map the audio json data to the audio model. This method
+  /// is delayed for 2 seconds to avoid data loss
   Future<List<AudioModel>?> getAudioList(List? audio) async {
-    await Future.delayed(sec2);
+    await Future.delayed(sec5);
     return audio?.map((item) => AudioModel.fromJson(item)).toList();
   }
 
+  /// Map the video json data to the video model. This method
+  /// is delayed for 2 seconds to avoid data loss
   Future<List<VideoModel>?> getVideoList(List? video) async {
-    await Future.delayed(sec2);
+    await Future.delayed(sec5);
     return video?.map((item) => VideoModel.fromJson(item)).toList();
   }
 
-  Future<Uint8List> generateThumbnail(String path) async {
-    String? thumbnailPath;
-    final res = await VideoThumbnail.thumbnailFile(
-      video: path,
-      thumbnailPath: thumbnailPath,
-      imageFormat: ImageFormat.JPEG,
-      maxWidth: 200,
-      quality: 100,
-    );
-    final file = File(res ?? '');
-    return file.readAsBytesSync();
-  }
-
+  /// Map the image json data to the image model. This method
+  /// is delayed for 2 seconds to avoid data loss
   Future<List<ImageModel>?> getImageList(List? image) async {
-    await Future.delayed(sec2);
+    await Future.delayed(sec5);
     return image?.map((item) => ImageModel.fromJson(item)).toList();
   }
 }

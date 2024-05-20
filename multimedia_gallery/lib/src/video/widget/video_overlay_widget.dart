@@ -22,17 +22,46 @@ class VideoOverlay extends StatelessWidget {
       this.onSliderChange,
       this.onChangeEnd});
 
+  /// The video player controller. To control the state of
+  /// the video.
   final VideoPlayerController controller;
+
+  /// The on play pressed function. To change the state of
+  /// the video to [controller.play] or [controller.pause]
   final void Function() onPlayPressed;
+
+  /// To check whether the device orientation is portrait or
+  /// landscape and change the UI accordingly.
   final bool isPortrait;
+
+  /// The overlay color of the video player.
   final Color? overlayColor;
+
+  /// The onBackButtonPressed. To update the back button
+  /// pressed activity.
   final void Function()? onBackButtonPressed;
+
+  /// The back button icon.
   final Icon? backIcon;
+
+  /// The back button color.
   final Color? backButtonColor;
+
+  /// The video center icon size.
   final double? iconSize;
+
+  /// The video center icon color.
   final Color? iconColor;
+
+  /// The slider style.
   final SliderThemeData? sliderStyle;
+
+  /// The on slider change function. To update the state of
+  /// the slider when the slider value is changing.
   final void Function(double)? onSliderChange;
+
+  /// The on slider change end function. To update the state of
+  /// the slider when the slider value is changed.
   final void Function(double)? onChangeEnd;
 
   @override

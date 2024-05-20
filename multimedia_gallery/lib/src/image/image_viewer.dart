@@ -7,7 +7,7 @@ import 'package:multimedia_gallery/src/listing/model/image_model.dart';
 /// The image viewer class. This class can be used to display image that can
 /// be zoom in and out and panning. This class also detect the color mode of
 /// the device for different UI.
-/// Required: [imageProvider]
+/// Required: [model]
 class ImageViewer extends StatefulWidget {
   const ImageViewer(
       {super.key,
@@ -34,27 +34,74 @@ class ImageViewer extends StatefulWidget {
       this.width,
       this.height});
 
+  /// The image model.
   final ImageModel model;
+
+  /// The image border radius.
   final BorderRadius? radius;
+
+  /// The image fit.
   final BoxFit? fit;
+
+  /// The loading indicator height.
   final double? indicatorHeight;
+
+  /// The image opacity.
   final Animation<double>? opacity;
+
+  /// The image repeat.
   final ImageRepeat? repeat;
+
+  /// The image alignment.
   final Alignment? alignment;
+
+  /// The image loaded builder.
   final ImageFrameBuilder? frameLoadedBuilder;
+
+  /// The image loading builder.
   final ImageLoadingBuilder? frameLoadingBuilder;
+
+  /// The screen padding.
   final EdgeInsets? boundaryMargin;
+
+  /// The image clip behaviour.
   final Clip? clipBehaviour;
+
+  /// To constrained the image.
   final bool? constrained;
+
+  /// The minimum scale to zoom in/out.
+  /// Minimum index = [0.8]
+  /// Default index = [1.0]
   final double? minScale;
+
+  /// The maximum scale to zoom in/out.
+  /// Minimum index = greater than [minScale] and 0.
+  /// Default index = [3.0]
   final double? maxScale;
+
+  /// The interaction function. Will triggered when interaction is [end].
   final GestureScaleEndCallback? onInteractionEnd;
+
+  /// The interaction function. Will triggered when interaction is [start].
   final GestureScaleStartCallback? onInteractionStart;
+
+  /// The interaction function. Will triggered to [update].
   final GestureScaleUpdateCallback? onInteractionUpdate;
+
+  /// To enable panning. Default: [false]
   final bool? panEnabled;
+
+  /// To enable scaling gesture. Default: [true]
   final bool? scaleEnabled;
+
+  /// To transform image according to the matrix. Eg: [Rotate]
   final TransformationController? transformationController;
+
+  /// The image width.
   final double? width;
+
+  /// The image height.
   final double? height;
 
   @override

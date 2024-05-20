@@ -12,9 +12,16 @@ class VideoSlider extends StatelessWidget {
       required this.videoDuration,
       this.data});
 
+  /// The current timestamp of the slider.
   final String currentPosition;
+
+  /// The slider style.
   final SliderThemeData? data;
+
+  /// The slider widget.
   final Widget child;
+
+  /// The total duration of the audio.
   final String videoDuration;
 
   @override

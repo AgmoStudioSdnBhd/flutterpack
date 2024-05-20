@@ -60,13 +60,15 @@ const Icon pauseIcon = Icon(Icons.pause);
 const Icon playIcon = Icon(Icons.play_arrow);
 const Icon replayIcon = Icon(Icons.replay);
 const Icon photoLibIcon = Icon(Icons.photo_library);
+const Icon videoLibIcon = Icon(Icons.video_library);
+const Icon musicLibIcon = Icon(Icons.library_music);
 
 /// constant video aspect ratio
 const double videoAspectRatio = 16 / 9;
 
 /// constant timestamp style
 SliderThemeData timeStampSlider = SliderThemeData(
-    overlayShape: SliderComponentShape.noOverlay,
+    overlayShape: SliderComponentShape.noThumb,
     thumbColor: Colors.white,
     activeTrackColor: Colors.white,
     inactiveTrackColor: Colors.grey.withOpacity(0.6));

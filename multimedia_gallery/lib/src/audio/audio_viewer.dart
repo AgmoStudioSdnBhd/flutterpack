@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -9,18 +10,74 @@ import 'package:multimedia_gallery/src/listing/model/audio_model.dart';
 
 /// AudioViewer class to be used to get the audio player ui and function.
 class AudioViewer extends StatefulWidget {
+
+  /// The list of audio model. Pass in the whole list of audio file to be able to
+  /// allocate the next and previous song.
   final List<AudioModel> model;
+
+  /// The selectedIndex of audio list. To get the selected index form the list
+  /// to be play.
   final int selectedIndex;
+
+  /// The padding of the screen.
   final EdgeInsets? screenPadding;
+
+  /// The width of the thumbnail image.
   final double? imageWidth;
+
+  /// The border radius of the thumbnail image.
   final BorderRadius? imageBorder;
+
+  /// The image fit. Option: [BoxFit.cover], [BoxFit.fitHeight], [BoxFit.contain],
+  /// [BoxFit.fill], [BoxFit.fitWidth], [BoxFit.none], [BoxFit.scaleDown]
+  /// Default: [BoxFit.fill]
   final BoxFit? imageFit;
+
+  /// The image fit. Option: [BoxFit.cover], [BoxFit.fitHeight], [BoxFit.contain],
+  /// [BoxFit.fill], [BoxFit.fitWidth], [BoxFit.none], [BoxFit.scaleDown]
+  /// Default: [BoxFit.cover]
+  final BoxFit? backgroundGifImageFit;
+
+  /// The image fit. Option: [BoxFit.cover], [BoxFit.fitHeight], [BoxFit.contain],
+  /// [BoxFit.fill], [BoxFit.fitWidth], [BoxFit.none], [BoxFit.scaleDown]
+  /// Default: [BoxFit.contain]
+  final BoxFit? foregroundGifImageFit;
+
+  /// The text style of the song name.
   final TextStyle? songNameTextStyle;
+
+  /// The text style of the artist name.
   final TextStyle? artistNameTextStyle;
+
+  /// The slider style.
   final SliderThemeData? sliderTheme;
-  final Icon? icon;
-  final ButtonStyle? iconStyle;
-  final void Function()? onPressed;
+
+  /// The play icon.
+  final Icon? playIcon;
+
+  /// The play icon button style.
+  final ButtonStyle? playIconStyle;
+
+  /// The play button function.
+  final void Function()? onPlayPressed;
+
+  /// The skip previous icon.
+  final Icon? skipPrevIcon;
+
+  /// The skip previous icon style.
+  final ButtonStyle? skipPrevIconStyle;
+
+  /// The skip previous button function.
+  final void Function()? onSkipPrevPress;
+
+  /// The skip next icon.
+  final Icon? skipNextIcon;
+
+  /// The skip next icon style.
+  final ButtonStyle? skipNextIconStyle;
+
+  /// The skip next button function.
+  final void Function()? onSkipNextPress;
 
   const AudioViewer(
       {super.key,
@@ -33,9 +90,17 @@ class AudioViewer extends StatefulWidget {
       this.artistNameTextStyle,
       this.songNameTextStyle,
       this.sliderTheme,
-      this.icon,
-      this.iconStyle,
-      this.onPressed});
+      this.playIcon,
+      this.playIconStyle,
+      this.onPlayPressed,
+      this.backgroundGifImageFit,
+      this.foregroundGifImageFit,
+      this.skipNextIcon,
+      this.onSkipNextPress,
+      this.onSkipPrevPress,
+      this.skipNextIconStyle,
+      this.skipPrevIcon,
+      this.skipPrevIconStyle});
 
   @override
   State<AudioViewer> createState() => _AudioViewerState();
@@ -84,7 +149,11 @@ class _AudioViewerState extends State<AudioViewer> {
   /// activity while the audio is played.
   StreamSubscription? playerStateChangeSubscription;
 
+  /// The selected index pass from the listing.
   late int index = widget.selectedIndex;
+
+  /// The audio image type. Will automatically assign to source type and display
+  /// the image accordingly.
   late ImageProvider img = getImageSourceType(widget.model[index].image);
 
   @override
@@ -109,6 +178,7 @@ class _AudioViewerState extends State<AudioViewer> {
     super.dispose();
   }
 
+  /// The text scrolling controller.
   void textController() {
     _titleController = ScrollController();
     _artistController = ScrollController();
@@ -124,11 +194,9 @@ class _AudioViewerState extends State<AudioViewer> {
         double maxScrollExtent = controller.position.maxScrollExtent;
         double minScrollExtent = controller.position.minScrollExtent;
         if (controller.offset != maxScrollExtent) {
-          controller.animateTo(maxScrollExtent,
-              duration: sec12, curve: Curves.linear);
+          controller.animateTo(maxScrollExtent, duration: sec12, curve: Curves.linear);
         } else {
-          controller.animateTo(minScrollExtent,
-              duration: sec10, curve: Curves.linear);
+          controller.animateTo(minScrollExtent, duration: sec10, curve: Curves.linear);
         }
       }
     });
@@ -167,14 +235,13 @@ class _AudioViewerState extends State<AudioViewer> {
   /// is a future method. After the [player.getCurrentPosition] is invoked, a
   /// final parameter [audioTimestamp] is set to this value.
   void getCurrentTimestamp() {
-    player
-        .getCurrentPosition()
-        .then((value) => setState(() => audioTimestamp = value));
+    player.getCurrentPosition().then((value) => setState(() => audioTimestamp = value));
   }
 
   /// The audio player controller. This controller method is to listen and update
   /// the parameter to be updated.
   void playerController() {
+
     /// The audio duration listener. This is to update the audio file duration when
     /// there are changes to the audio duration. This method can be used when changing
     /// audio file to play.
@@ -215,6 +282,9 @@ class _AudioViewerState extends State<AudioViewer> {
     player.seek(Duration(milliseconds: value.round()));
   }
 
+
+  /// The default skip next function. This method is to skip the current audio to the
+  /// next one.
   void onSkipNext() {
     setState(() {
       state = PlayerState.stopped;
@@ -228,6 +298,8 @@ class _AudioViewerState extends State<AudioViewer> {
     player.play(UrlSource(widget.model[index].path ?? ''));
   }
 
+  /// The default skip next function. This method is to skip the current audio to the
+  /// previous one.
   void onSkipPrevious() {
     setState(() {
       state = PlayerState.stopped;
@@ -246,13 +318,18 @@ class _AudioViewerState extends State<AudioViewer> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     return isGif(widget.model[index].image ?? '')
         ? Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: img,
-                    fit: BoxFit.fitHeight,
-                    repeat: ImageRepeat.noRepeat)),
-            child: Stack(
-                children: [Container(color: Colors.black38), _buildContent()]))
+            decoration:
+                BoxDecoration(image: DecorationImage(image: img, fit: widget.backgroundGifImageFit ?? BoxFit.cover, repeat: ImageRepeat.noRepeat)),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Stack(children: [
+                Container(color: Colors.black.withOpacity(0.6)),
+                Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(image: img, fit: widget.imageFit ?? BoxFit.fitHeight, repeat: ImageRepeat.noRepeat))),
+                _buildContent()
+              ]),
+            ))
         : GradientBackground(image: img, child: _buildContent());
   }
 
@@ -262,140 +339,97 @@ class _AudioViewerState extends State<AudioViewer> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
             backgroundColor: Colors.transparent,
-            leading: IconButton(
-                icon: backButton,
-                onPressed: () => Navigator.pop(context),
-                color: Colors.white)),
+            leading: IconButton(icon: backButton, onPressed: () => Navigator.pop(context), color: Colors.white)),
         body: SingleChildScrollView(
             child: Container(
-                height: MediaQuery.of(context).size.height -
-                    MediaQuery.of(context).padding.top -
-                    kToolbarHeight,
+                height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - kToolbarHeight,
                 padding: widget.screenPadding ?? padding16,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      isGif(widget.model[index].image ?? '')
-                          ? Flexible(
-                              child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 2))
-                          : Flexible(
-                              child: FittedBox(
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Card(
-                                          elevation: 4,
-                                          clipBehavior: Clip.antiAlias,
-                                          child: Image(
-                                              image: img,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .shortestSide /
-                                                  2,
-                                              fit: BoxFit.fill))))),
-                      sizedBoxGapConstantH10,
-                      Flexible(
-                          flex: 2,
-                          child:
-                              Column(mainAxisSize: MainAxisSize.min, children: [
-                            SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                controller: _titleController,
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Flexible(
-                                          child: FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              child: Text(
-                                                  widget.model[index]
-                                                          .audioName ??
-                                                      '',
-                                                  style: widget
-                                                          .songNameTextStyle ??
-                                                      audioNameTextStyle)))
-                                    ])),
-                            SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                controller: _artistController,
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Flexible(
-                                          child: FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              child: Text(
-                                                  widget.model[index]
-                                                          .artistName ??
-                                                      '',
-                                                  style: widget
-                                                          .artistNameTextStyle ??
-                                                      artistNameTextStyle)))
-                                    ])),
-                            sizedBoxGapConstantH10,
-                            SliderTheme(
-                                data: widget.sliderTheme ?? timeStampSlider,
-                                child: Slider(
-                                    value: sliderPosition ?? 0,
-                                    min: 0,
-                                    max: sliderMaxPosition ?? 0,
-                                    onChanged: (value) {
-                                      sliderPosition = value;
-                                    },
-                                    onChangeEnd: (value) {
-                                      seekTo(value);
-                                    })),
-                            Padding(
-                                padding: padding10,
-                                child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                          formatDuration(
-                                              audioTimestamp ?? Duration.zero),
-                                          style: timestampTextStyle),
-                                      Text(
-                                          formatDuration(
-                                              (audioDuration ?? Duration.zero) -
-                                                  (audioTimestamp ??
-                                                      Duration.zero)),
-                                          style: timestampTextStyle)
-                                    ])),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  IconButton(
-                                      onPressed: onSkipPrevious,
-                                      icon: skipPrevIcon,
-                                      style: widget.iconStyle ??
-                                          secondaryIconStyle),
-                                  IconButton.filled(
-                                      onPressed: widget.onPressed ??
-                                          () {
-                                            setState(() {
-                                              (player.state.name == 'playing')
-                                                  ? pauseAudio()
-                                                  : resumeAudio();
-                                            });
-                                          },
-                                      icon: widget.icon ??
-                                          Icon(player.state.name == 'playing'
-                                              ? Icons.pause
-                                              : Icons.play_arrow),
-                                      style:
-                                          widget.iconStyle ?? primaryIconStyle),
-                                  IconButton(
-                                      onPressed: onSkipNext,
-                                      icon: skipNextIcon,
-                                      style: widget.iconStyle ??
-                                          secondaryIconStyle)
-                                ])
-                          ]))
-                    ]))));
+                child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  isGif(widget.model[index].image ?? '')
+                      ? Flexible(child: SizedBox(height: MediaQuery.of(context).size.height / 2))
+                      : Flexible(
+                          child: FittedBox(
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Card(
+                                      elevation: 4,
+                                      clipBehavior: Clip.antiAlias,
+                                      child: Image(
+                                          image: img,
+                                          width: MediaQuery.of(context).size.shortestSide / 2,
+                                          fit: widget.imageFit ?? BoxFit.fill))))),
+                  sizedBoxGapConstantH10,
+                  Flexible(
+                      flex: 2,
+                      child: Column(mainAxisSize: MainAxisSize.min, children: [
+                        SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            controller: _titleController,
+                            child: Column(mainAxisSize: MainAxisSize.min, children: [
+                              Flexible(
+                                  child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(widget.model[index].audioName ?? '',
+                                          style: widget.songNameTextStyle ?? audioNameTextStyle)))
+                            ])),
+                        SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            controller: _artistController,
+                            child: Column(mainAxisSize: MainAxisSize.min, children: [
+                              Flexible(
+                                  child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(widget.model[index].artistName ?? '',
+                                          style: widget.artistNameTextStyle ?? artistNameTextStyle)))
+                            ])),
+                        sizedBoxGapConstantH10,
+                        SafeArea(
+                          child: SliderTheme(
+                              data: widget.sliderTheme ?? timeStampSlider,
+                              child: Slider(
+                                  value: sliderPosition ?? 0,
+                                  min: 0,
+                                  max: sliderMaxPosition ?? 0,
+                                  onChanged: (value) {
+                                    sliderPosition = value;
+                                  },
+                                  onChangeEnd: (value) {
+                                    seekTo(value);
+                                  })),
+                        ),
+                        SafeArea(
+                          bottom: false,
+                              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                Text(formatDuration(audioTimestamp ?? Duration.zero), style: timestampTextStyle),
+                                Text(formatDuration((audioDuration ?? Duration.zero) - (audioTimestamp ?? Duration.zero)),
+                                    style: timestampTextStyle)
+                              ])),
+
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              IconButton(
+                                  onPressed: onSkipPrevious,
+                                  icon: skipPrevIcon,
+                                  style: widget.playIconStyle ?? secondaryIconStyle),
+                              IconButton.filled(
+                                  onPressed: widget.onPlayPressed ??
+                                      () {
+                                        setState(() {
+                                          (player.state.name == 'playing') ? pauseAudio() : resumeAudio();
+                                        });
+                                      },
+                                  icon: widget.playIcon ??
+                                      Icon(player.state.name == 'playing' ? Icons.pause : Icons.play_arrow),
+                                  style: widget.playIconStyle ?? primaryIconStyle),
+                              IconButton(
+                                  onPressed: onSkipNext,
+                                  icon: skipNextIcon,
+                                  style: widget.playIconStyle ?? secondaryIconStyle)
+                            ])
+                      ]))
+                ]))));
   }
 }

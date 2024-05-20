@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:multimedia_gallery/src/extension/extension.dart';
 import 'package:multimedia_gallery/src/listing/model/audio_model.dart';
 
+/// The audio card widget. To be display as card in [listing]
 class AudioCard extends StatelessWidget {
   const AudioCard({super.key, required this.model, required this.isLast});
 
+  /// The audio model. To get the audio data.
   final AudioModel model;
+
+  /// The boolean of whether the audio model is the last in the list.
   final bool isLast;
 
   @override

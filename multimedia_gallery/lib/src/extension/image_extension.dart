@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
+/// The image source assign method. To automatically assign the image source.
 getImageSourceType(String? path) {
   if (path != null) {
     if (path.startsWith('https') || path.startsWith('http')) {
@@ -15,6 +16,7 @@ getImageSourceType(String? path) {
   }
 }
 
+/// The gif image detector. To detect gif and display UI accordingly.
 bool isGif(String path) {
   ImageProvider img = getImageSourceType(path);
   if (img.toString().contains('.gif')) {

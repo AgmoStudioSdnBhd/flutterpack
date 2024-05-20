@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:multimedia_gallery/multimedia_gallery.dart';
 
-BottomNavigationBarItem bottomNavBarItem(Icon navIcon, Icon activeNavIcon) {
+/// The constant bottom navigation bar item
+BottomNavigationBarItem bottomNavBarItem(Icon navIcon) {
   return BottomNavigationBarItem(
       icon: navIcon,
       label: ' ',
@@ -9,5 +10,5 @@ BottomNavigationBarItem bottomNavBarItem(Icon navIcon, Icon activeNavIcon) {
           width: 60,
           height: 60,
           decoration: activeNavIconStyle,
-          child: const Icon(Icons.photo_library, color: Colors.white70)));
+          child: Icon(navIcon.icon, color: Colors.white70)));
 }

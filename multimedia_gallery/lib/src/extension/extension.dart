@@ -4,6 +4,6 @@ library extension;
 export 'package:multimedia_gallery/src/extension/audio_file_ext.dart';
 export 'package:multimedia_gallery/src/extension/video_file_ext.dart';
 export 'package:multimedia_gallery/src/extension/enum.dart';
-export 'package:multimedia_gallery/src/extension/image_file_ext.dart';
+export 'package:multimedia_gallery/src/extension/image_extension.dart';
 export 'package:multimedia_gallery/src/extension/string_formatter.dart';
 export 'package:multimedia_gallery/src/extension/constants.dart';

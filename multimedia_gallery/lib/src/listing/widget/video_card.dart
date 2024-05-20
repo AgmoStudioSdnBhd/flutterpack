@@ -7,10 +7,15 @@ import 'package:multimedia_gallery/src/extension/extension.dart';
 import 'package:multimedia_gallery/src/listing/model/model.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
+
+/// The video card. To display the video list card widget in the listing page.
 class VideoCard extends StatefulWidget {
   const VideoCard({super.key, required this.model, required this.isLast});
 
+  /// The video model. To get the video model data.
   final VideoModel model;
+
+  /// The boolean of whether the audio model is the last in the list.
   final bool isLast;
 
   @override
@@ -70,17 +75,16 @@ class _VideoCardState extends State<VideoCard> {
               flex: 1,
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(6),
-                  child: SizedBox.square(
-                      dimension: 100,
+                  child: SizedBox(
                       child: thumbnailBytes != null
                           ? Image(
                               image: thumbnailImg,
-                              fit: BoxFit.scaleDown,
+                              fit: BoxFit.cover,
+                        filterQuality: FilterQuality.high,
                             )
                           : Container(
-                              height: 100,
-                              width: 100,
-                              color: Colors.white10)))),
+                              width: 160,
+                              color: Colors.white54)))),
           Flexible(
               flex: 4,
               child: Padding(
