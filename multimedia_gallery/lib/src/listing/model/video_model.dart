@@ -1,6 +1,5 @@
 /// The video model. To get the data from the model to display.
 class VideoModel {
-
   /// The video path.
   String? path;
 

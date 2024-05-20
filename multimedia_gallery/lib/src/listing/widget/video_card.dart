@@ -7,7 +7,6 @@ import 'package:multimedia_gallery/src/extension/extension.dart';
 import 'package:multimedia_gallery/src/listing/model/model.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
-
 /// The video card. To display the video list card widget in the listing page.
 class VideoCard extends StatefulWidget {
   const VideoCard({super.key, required this.model, required this.isLast});
@@ -80,11 +79,9 @@ class _VideoCardState extends State<VideoCard> {
                           ? Image(
                               image: thumbnailImg,
                               fit: BoxFit.cover,
-                        filterQuality: FilterQuality.high,
+                              filterQuality: FilterQuality.high,
                             )
-                          : Container(
-                              width: 160,
-                              color: Colors.white54)))),
+                          : Container(width: 160, color: Colors.white54)))),
           Flexible(
               flex: 4,
               child: Padding(

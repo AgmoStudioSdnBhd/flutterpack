@@ -7,8 +7,10 @@ import 'package:multimedia_gallery/src/listing/model/audio_model.dart';
 class ListingViewModel extends ChangeNotifier {
   /// The fetched audio list. Can get the audio list after [fetchAudio].
   List<AudioModel>? fetchedAudio;
+
   /// The fetched audio list. Can get the audio list after [fetchVideo].
   List<VideoModel>? fetchedVideo;
+
   /// The fetched audio list. Can get the audio list after [fetchImage].
   List<ImageModel>? fetchedImage;
 

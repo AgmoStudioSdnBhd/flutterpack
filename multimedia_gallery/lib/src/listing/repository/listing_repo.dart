@@ -3,7 +3,6 @@ import 'package:multimedia_gallery/multimedia_gallery.dart';
 
 /// The listing repository. This repository is to map the data into model.
 class ListingRepository extends ChangeNotifier {
-
   /// Map the audio json data to the audio model. This method
   /// is delayed for 2 seconds to avoid data loss
   Future<List<AudioModel>?> getAudioList(List? audio) async {

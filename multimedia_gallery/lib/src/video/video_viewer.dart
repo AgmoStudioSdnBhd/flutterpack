@@ -110,7 +110,7 @@ class _VideoViewerState extends State<VideoViewer> {
         controller.value.duration.inMilliseconds.toDouble()) {
       disableShowIconTimer?.cancel();
       disableShowIconTimer = Timer.periodic(sec5, (timer) {
-        if(mounted) {
+        if (mounted) {
           setState(() {
             isShowIcon = false;
           });

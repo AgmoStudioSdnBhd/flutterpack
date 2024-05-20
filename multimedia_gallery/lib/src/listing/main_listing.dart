@@ -20,8 +20,10 @@ class MainListing extends StatelessWidget {
 
   /// The audio list get from user.
   final List? audioList;
+
   /// The image list get from user.
   final List? imageList;
+
   /// The video list get from user.
   final List? videoList;
 
@@ -37,9 +39,9 @@ class MainListing extends StatelessWidget {
   }
 }
 
-
 class _MainListing extends StatefulWidget {
-  const _MainListing({required this.audioList, this.imageList, required this.videoList});
+  const _MainListing(
+      {required this.audioList, this.imageList, required this.videoList});
 
   final List? audioList;
   final List? imageList;
@@ -88,7 +90,10 @@ class _MainListingState extends State<_MainListing> {
                 automaticallyImplyLeading: false,
                 titleSpacing: 20,
                 backgroundColor: Colors.transparent,
-                title: Padding(padding: padding16, child: Text(type.localizeTitle(), style: listingTitleTextStyle))),
+                title: Padding(
+                    padding: padding16,
+                    child: Text(type.localizeTitle(),
+                        style: listingTitleTextStyle))),
             bottomNavigationBar: BottomNavigationBar(
                 onTap: (index) {
                   setState(() {
@@ -111,8 +116,10 @@ class _MainListingState extends State<_MainListing> {
                 future: _fetchMedia(),
                 builder: (context, snapshot) {
                   List? fetchedList;
-                  if (fetchedList != [] && snapshot.connectionState == ConnectionState.done) {
-                    return Consumer<ListingViewModel>(builder: (context, mediaProvider, child) {
+                  if (fetchedList != [] &&
+                      snapshot.connectionState == ConnectionState.done) {
+                    return Consumer<ListingViewModel>(
+                        builder: (context, mediaProvider, child) {
                       switch (selectedIndex) {
                         case 0:
                           fetchedList = mediaProvider.fetchedImage;
@@ -131,21 +138,32 @@ class _MainListingState extends State<_MainListing> {
                           margin: const EdgeInsets.symmetric(horizontal: 16),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
-                              color: type == ListingType.image ? Colors.transparent : Colors.white24),
+                              color: type == ListingType.image
+                                  ? Colors.transparent
+                                  : Colors.white24),
                           child: type == ListingType.image
                               ? GridView.builder(
-                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3, mainAxisSpacing: 20, crossAxisSpacing: 20),
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 3,
+                                          mainAxisSpacing: 20,
+                                          crossAxisSpacing: 20),
                                   padding: padding10,
-                                  itemCount: fetchedList?.length, // total number of items
+                                  itemCount: fetchedList
+                                      ?.length, // total number of items
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
                                         onTap: () {
-                                          Navigator.of(context).push(MaterialPageRoute(
-                                              builder: (context) => ImageViewer(model: fetchedList?[index])));
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ImageViewer(
+                                                          model: fetchedList?[
+                                                              index])));
                                         },
                                         child: fetchedList?.isNotEmpty ?? false
-                                            ? ImageCard(model: fetchedList?[index])
+                                            ? ImageCard(
+                                                model: fetchedList?[index])
                                             : Container(color: Colors.white24));
                                   })
                               : ListView.builder(
@@ -158,24 +176,40 @@ class _MainListingState extends State<_MainListing> {
                                       case 1:
                                         listWidget = GestureDetector(
                                             onTap: () {
-                                              Navigator.of(context).push(MaterialPageRoute(
-                                                  builder: (context) => VideoViewer(
-                                                      model: fetchedList as List<VideoModel>, selected: index)));
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          VideoViewer(
+                                                              model: fetchedList
+                                                                  as List<
+                                                                      VideoModel>,
+                                                              selected:
+                                                                  index)));
                                             },
                                             child: VideoCard(
                                                 model: fetchedList?[index],
-                                                isLast: index == (fetchedList?.length ?? 1) - 1));
+                                                isLast: index ==
+                                                    (fetchedList?.length ?? 1) -
+                                                        1));
                                         break;
                                       case 2:
                                         listWidget = GestureDetector(
                                             onTap: () {
-                                              Navigator.of(context).push(MaterialPageRoute(
-                                                  builder: (context) => AudioViewer(
-                                                      selectedIndex: index, model: fetchedList as List<AudioModel>)));
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          AudioViewer(
+                                                              selectedIndex:
+                                                                  index,
+                                                              model: fetchedList
+                                                                  as List<
+                                                                      AudioModel>)));
                                             },
                                             child: AudioCard(
                                                 model: fetchedList?[index],
-                                                isLast: index == (fetchedList?.length ?? 1) - 1));
+                                                isLast: index ==
+                                                    (fetchedList?.length ?? 1) -
+                                                        1));
                                         break;
                                     }
                                     return listWidget;

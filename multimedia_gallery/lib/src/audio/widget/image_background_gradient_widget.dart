@@ -13,7 +13,6 @@ class GradientBackground extends StatefulWidget {
   final ImageProvider image;
   final Widget child;
 
-
   @override
   State<GradientBackground> createState() => _GradientBackgroundState();
 }

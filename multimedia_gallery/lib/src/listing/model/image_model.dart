@@ -1,6 +1,5 @@
 /// The image model. To get the data from the model to display.
 class ImageModel {
-
   /// The image name.
   String? name;
 
