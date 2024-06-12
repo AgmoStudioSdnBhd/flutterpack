@@ -1,6 +1,6 @@
 name: multimedia_gallery
 description: "A multimedia gallery for Flutter. This gallery support image panning and zooming, video viewing and audio playing with multiple media format."
-version: 0.0.3+13
+version: 0.0.3+14
 repository: https://github.com/AgmoStudioSdnBhd/flutterpack
 issue_tracker: https://github.com/AgmoStudioSdnBhd/flutterpack/issues?q=is%3Aissue+is%3Aopen+
 homepage: https://www.agmostudio.com/
