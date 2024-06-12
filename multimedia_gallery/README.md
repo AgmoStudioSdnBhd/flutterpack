@@ -16,12 +16,13 @@ List of features' supported platform
 | Video List |✅|✅|
 | Audio List |✅|✅|
 | Next audio | ✅ |✅|
-| Next video |||
-| Next image |||
+| Next video |❌|❌|
+| Next image |❌|❌|
 
 ### Main Listing
 
 This feature support the display of image list, video list and audio list. Also support the on press to display the media viewer.
+
 <img src="https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/listing.gif" width="400">
 
 ### Image Viewer
@@ -53,8 +54,8 @@ It also include:
 ### Audio Viewer
 
 This feature include play, pause and seek certain timestamp with presentable user interface.
-
 This feature is also supporting skip to next audio.
+
 <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/audio_viewer_example.gif" alt="drawing" width="200"/>
 
 Feature also include different user interface for different image file type
