@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:multimedia_gallery/multimedia_gallery.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 ///Empty image
 const AssetImage emptyImage = AssetImage('');
 
 /// constant text style for the multimedia gallery
-const TextStyle imageDateTextStyle =
-    TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+const TextStyle imageDateTextStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
 const TextStyle imageTimeAndNameTextStyle = TextStyle(fontSize: 16);
-const TextStyle audioNameTextStyle =
-    TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white);
-const TextStyle artistNameTextStyle =
-    TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white70);
-const TextStyle timestampTextStyle =
-    TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
-const TextStyle listingTitleTextStyle =
-    TextStyle(color: Colors.white70, fontWeight: FontWeight.w800);
+const TextStyle audioNameTextStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white);
+const TextStyle artistNameTextStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white70);
+const TextStyle timestampTextStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
+const TextStyle listingTitleTextStyle = TextStyle(color: Colors.white70, fontWeight: FontWeight.w800);
 
 /// constant loading indicator
 Widget loadingIndicator() => const Center(
@@ -30,6 +27,7 @@ Widget loadingIndicator() => const Center(
 /// gap constant
 const SizedBox sizedBoxGapConstantH8 = SizedBox(height: 8);
 const SizedBox sizedBoxGapConstantH10 = SizedBox(height: 10);
+const SizedBox sizedBoxGapConstantW50 = SizedBox(width: 50);
 
 /// constant padding
 const EdgeInsets padding16 = EdgeInsets.all(16);
@@ -87,8 +85,21 @@ const Duration sec12 = Duration(seconds: 12);
 ///constant box decoration
 const BoxDecoration listingBackgroundStyle = BoxDecoration(
     gradient: LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        colors: [mainListingBlack, mainListingBlue]));
-BoxDecoration activeNavIconStyle = BoxDecoration(
-    borderRadius: BorderRadius.circular(50), gradient: activeIconGradient);
+        begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [mainListingBlack, mainListingBlue]));
+BoxDecoration activeNavIconStyle = BoxDecoration(borderRadius: BorderRadius.circular(50), gradient: activeIconGradient);
+
+///constant image model
+final mockImageModel = ImageModel(
+    path:
+        "https://images.unsplash.com/photo-1587869776358-66c797a206fb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    name: "Scenery",
+    uploadedDate: "2024-04-23 03:01:36.913664Z");
+final mockVideoModel = VideoModel(
+    path: "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
+    name: BoneMock.name,
+    uploadedDate: BoneMock.date);
+final mockAudioModel = AudioModel(
+    image: "assets/images/beach.gif",
+    path: "https://cdn.pixabay.com/audio/2023/07/30/audio_4167bdd0fd.mp3",
+    artistName: BoneMock.name,
+    audioName: BoneMock.name);
