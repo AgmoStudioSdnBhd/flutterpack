@@ -20,7 +20,9 @@ class VideoOverlay extends StatelessWidget {
       this.iconColor,
       this.sliderStyle,
       this.onSliderChange,
-      this.onChangeEnd});
+      this.onChangeEnd,
+      required this.onSkipNext,
+      required this.onSkipPrev});
 
   /// The video player controller. To control the state of
   /// the video.
@@ -29,6 +31,10 @@ class VideoOverlay extends StatelessWidget {
   /// The on play pressed function. To change the state of
   /// the video to [controller.play] or [controller.pause]
   final void Function() onPlayPressed;
+
+  final void Function() onSkipNext;
+
+  final void Function() onSkipPrev;
 
   /// To check whether the device orientation is portrait or
   /// landscape and change the UI accordingly.
@@ -90,11 +96,28 @@ class VideoOverlay extends StatelessWidget {
                   icon: backButton,
                   color: backButtonColor ?? Colors.white)),
       Center(
-          child: IconButton(
-              icon: centerIcon(),
-              iconSize: iconSize ?? 50,
-              color: iconColor ?? Colors.white,
-              onPressed: onPlayPressed)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                  icon: skipPrevIcon,
+                  iconSize: iconSize ?? 50,
+                  color: iconColor ?? Colors.white,
+                  onPressed: onSkipPrev),
+              sizedBoxGapConstantW50,
+              IconButton(
+                  icon: centerIcon(),
+                  iconSize: iconSize ?? 50,
+                  color: iconColor ?? Colors.white,
+                  onPressed: onPlayPressed),
+              sizedBoxGapConstantW50,
+              IconButton(
+                  icon: skipNextIcon,
+                  iconSize: iconSize ?? 50,
+                  color: iconColor ?? Colors.white,
+                  onPressed: onSkipNext),
+            ],
+          )),
       VideoSlider(
           data: sliderStyle,
           currentPosition: formatDuration(controller.value.position),

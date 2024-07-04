@@ -67,13 +67,6 @@ class _VideoViewerState extends State<VideoViewer> {
     super.initState();
     initializeVideoController();
     playVideo();
-    controller.addListener(() {
-      setState(() {
-        controller.value.isPlaying;
-        currentPosition = controller.value.position;
-        onVideoComplete();
-      });
-    });
   }
 
   @override
@@ -153,6 +146,13 @@ class _VideoViewerState extends State<VideoViewer> {
   void playVideo() {
     controller.play();
     showIconTimerFunc();
+    controller.addListener(() {
+      setState(() {
+        controller.value.isPlaying;
+        currentPosition = controller.value.position;
+        onVideoComplete();
+      });
+    });
   }
 
   /// The video player state controller. This method is to update the state of the
@@ -160,6 +160,38 @@ class _VideoViewerState extends State<VideoViewer> {
   /// video player is [controller.play] and the path is [notnull].
   void pauseVideo() {
     controller.pause();
+  }
+
+  /// The default skip next function. This method is to skip the current audio to the
+  /// next one.
+  void onSkipNext() {
+    setState(() {
+      pauseVideo();
+      if (index + 1 == widget.model.length) {
+        index = 0;
+      } else {
+        index += 1;
+      }
+    });
+    controller.dispose();
+    initializeVideoController();
+    playVideo();
+  }
+
+  /// The default skip next function. This method is to skip the current audio to the
+  /// previous one.
+  void onSkipPrevious() {
+    setState(() {
+      pauseVideo();
+      if (index == 0) {
+        index = widget.model.length - 1;
+      } else {
+        index -= 1;
+      }
+    });
+    controller.dispose();
+    initializeVideoController();
+    playVideo();
   }
 
   @override
@@ -242,7 +274,7 @@ class _VideoViewerState extends State<VideoViewer> {
                   },
                   onChangeEnd: (value) {
                     _seekTo(value);
-                  }))
+                  }, onSkipNext: onSkipNext, onSkipPrev: onSkipPrevious,))
         ]));
   }
 }
