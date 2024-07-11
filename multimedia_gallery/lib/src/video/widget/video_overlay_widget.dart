@@ -97,27 +97,27 @@ class VideoOverlay extends StatelessWidget {
                   color: backButtonColor ?? Colors.white)),
       Center(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                  icon: skipPrevIcon,
-                  iconSize: iconSize ?? 50,
-                  color: iconColor ?? Colors.white,
-                  onPressed: onSkipPrev),
-              sizedBoxGapConstantW50,
-              IconButton(
-                  icon: centerIcon(),
-                  iconSize: iconSize ?? 50,
-                  color: iconColor ?? Colors.white,
-                  onPressed: onPlayPressed),
-              sizedBoxGapConstantW50,
-              IconButton(
-                  icon: skipNextIcon,
-                  iconSize: iconSize ?? 50,
-                  color: iconColor ?? Colors.white,
-                  onPressed: onSkipNext),
-            ],
-          )),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+              icon: skipPrevIcon,
+              iconSize: iconSize ?? 50,
+              color: iconColor ?? Colors.white,
+              onPressed: onSkipPrev),
+          sizedBoxGapConstantW50,
+          IconButton(
+              icon: centerIcon(),
+              iconSize: iconSize ?? 50,
+              color: iconColor ?? Colors.white,
+              onPressed: onPlayPressed),
+          sizedBoxGapConstantW50,
+          IconButton(
+              icon: skipNextIcon,
+              iconSize: iconSize ?? 50,
+              color: iconColor ?? Colors.white,
+              onPressed: onSkipNext),
+        ],
+      )),
       VideoSlider(
           data: sliderStyle,
           currentPosition: formatDuration(controller.value.position),
