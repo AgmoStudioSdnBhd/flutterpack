@@ -1,3 +1,6 @@
+## 0.0.3+15
+- Add customizable AppBar for image viewer
+
 ## 0.0.3+14
 - Updated readme.md
 
