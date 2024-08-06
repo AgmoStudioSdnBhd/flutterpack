@@ -1,3 +1,7 @@
+## 0.0.3+17
+- Format code
+- Updated readme.md
+
 ## 0.0.3+16
 - Added next image and image list indicator
 - Added next video feature
