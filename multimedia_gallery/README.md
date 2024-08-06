@@ -18,6 +18,7 @@ List of features' supported platform
 | Next audio | ✅ |✅|
 | Next video |✅|✅|
 | Next image |❌|❌|
+| Download image |✅|✅|
 
 ### Main Listing
 
@@ -28,6 +29,7 @@ This feature support the display of image list, video list and audio list. Also 
 ### Image Viewer
 
 This feature support image panning, zoom in and out by pinching the image. This feature also supports for light mode and dark mode detector.
+This feature support long press download image. Also showing indicator when there is multiple image in the list.
 
 <img src="multimedia_gallery/assets/images/image_viewer_example.gif" alt="drawing" width="200"/>
 <img src="multimedia_gallery/assets/images/image_viewer_dark_mode_example.gif" alt="drawing" width="200"/>
@@ -41,6 +43,8 @@ It also include:
 - Play video: Able to play and resume video
 - Pause video: Able to pause the video
 - Duration slider: Able to slide the video to desire timestamp
+- Next and Previous video: Able to press skip next or skip previous button to proceed to next and previous video.
+- Replay video: Able to replay the video after the video is done playing.
 
   ![Image Viewer Example](multimedia_gallery/assets/images/play_pause_video_example.gif)
   ![Image Viewer Example](multimedia_gallery/assets/images/slider_example.gif)
