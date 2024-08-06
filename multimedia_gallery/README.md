@@ -24,18 +24,18 @@ List of features' supported platform
 
 This feature support the display of image list, video list and audio list. Also support the on press to display the media viewer.
 
-<img src="multimedia_gallery/assets/images/listing.gif" width="400">
+<img src="https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/listing.gif" width="400" alt="listing">
 
 ### Image Viewer
 
 This feature support image panning, zoom in and out by pinching the image. This feature also supports for light mode and dark mode detector.
 This feature support long press download image. Also showing indicator when there is multiple image in the list.
 
-<img src="multimedia_gallery/assets/images/image_list_indicator.png" alt="drawing" width="200"/>
-<img src="multimedia_gallery/assets/images/image_viewer_dark_mode_example.gif" alt="drawing" width="200"/>
-<img src="multimedia_gallery/assets/images/download_dialog_prompt.png" alt="drawing" width="200"/>
-<img src="multimedia_gallery/assets/images/download_complete_exp.png" alt="drawing" width="200"/>
-<img src="multimedia_gallery/assets/images/image_viewer_swipe.gif" alt="drawing" width="200"/>
+  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_list_indicator.png" alt="drawing" width="200"/>
+  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_viewer_dark_mode_example.gif" alt="drawing" width="200"/>
+<img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/download_dialog_prompt.png" alt="drawing" width="200"/>
+<img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/download_complete_exp.png" alt="drawing" width="200"/>
+<img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_viewer_swipe.gif" alt="drawing" width="200"/>
 
 ### Video Viewer
 
@@ -46,29 +46,27 @@ It also include:
 - Play video: Able to play and resume video
 - Pause video: Able to pause the video
 - Duration slider: Able to slide the video to desire timestamp
-- Next and Previous video: Able to press skip next or skip previous button to proceed to next and previous video.
-- Replay video: Able to replay the video after the video is done playing.
 
-  ![Image Viewer Example](multimedia_gallery/assets/images/play_pause_video_example.gif)
-  ![Image Viewer Example](multimedia_gallery/assets/images/slider_example.gif)
+  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/play_pause_video_example.gif" alt="drawing" width="200"/>
+
+  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/slider_example.gif" alt="drawing" width="400"/>
 
 ### Audio Viewer
 
 This feature include play, pause and seek certain timestamp with presentable user interface.
-
 This feature is also supporting skip to next audio.
 
-https://github.com/AgmoStudioSdnBhd/flutterpack/assets/164973699/6823591b-f8a4-4941-aa29-f6e63f69843d
+<img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/audio_viewer_example.gif" alt="drawing" width="200"/>
 
 Feature also include different user interface for different image file type
 
 - Animated image
 
-https://github.com/AgmoStudioSdnBhd/flutterpack/assets/164973699/75b8d71f-4bf9-4009-9264-91868c39757c
+  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/gif_audio_viewer_example.gif" alt="drawing" width="200"/>
 
 - Normal image
 
-https://github.com/AgmoStudioSdnBhd/flutterpack/assets/164973699/371ad321-8945-421e-a106-b7f9e19d5fb4
+  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_audio_viewer_example.gif" alt="drawing" width="200"/>
 
 ### Requirements
 
