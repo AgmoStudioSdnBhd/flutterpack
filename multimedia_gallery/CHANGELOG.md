@@ -1,3 +1,7 @@
+## 0.0.3+16
+- Added next image and image list indicator
+- Added next video feature
+
 ## 0.0.3+15
 - Add customizable AppBar for image viewer
 
