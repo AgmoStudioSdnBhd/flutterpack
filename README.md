@@ -17,7 +17,8 @@ List of features' supported platform
 | Audio List |✅|✅|
 | Next audio | ✅ |✅|
 | Next video |✅|✅|
-| Next image |❌|❌|
+| Next image |✅|✅|
+| Download image |✅|✅|
 
 ### Main Listing
 
