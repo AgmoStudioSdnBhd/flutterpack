@@ -144,7 +144,10 @@ class _MainListingState extends State<_MainListing> {
                                       return GestureDetector(
                                           onTap: () {
                                             Navigator.of(context).push(MaterialPageRoute(
-                                                builder: (context) => ImageViewer(model: fetchedList?[index])));
+                                                builder: (context) => ImageViewer(
+                                                    model: fetchedList?[index] is ImageModel
+                                                        ? fetchedList as List<ImageModel>
+                                                        : List.empty())));
                                           },
                                           child: fetchedList?.isNotEmpty ?? false
                                               ? ImageCard(model: fetchedList?[index])

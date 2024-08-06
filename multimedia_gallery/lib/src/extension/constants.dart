@@ -13,6 +13,14 @@ const TextStyle audioNameTextStyle = TextStyle(fontSize: 18, fontWeight: FontWei
 const TextStyle artistNameTextStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white70);
 const TextStyle timestampTextStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
 const TextStyle listingTitleTextStyle = TextStyle(color: Colors.white70, fontWeight: FontWeight.w800);
+const TextStyle imageViewerDialogTextStyle =
+    TextStyle(fontSize: 14, color: lightVibrantBlue, fontWeight: FontWeight.w500);
+const TextStyle imageViewerDialogTitleTextStyle =
+    TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: mainListingBlack);
+const TextStyle imageViewerDialogSubTitleTextStyle = TextStyle(color: Colors.black);
+const TextStyle imageViewerDialogButtonTextStyle =
+    TextStyle(fontSize: 14, color: mainListingBlue, fontWeight: FontWeight.w500);
+const TextStyle snackBarTitleTextStyle = TextStyle(color: Colors.white70, fontWeight: FontWeight.w800);
 
 /// constant loading indicator
 Widget loadingIndicator() => const Center(
@@ -28,6 +36,8 @@ Widget loadingIndicator() => const Center(
 const SizedBox sizedBoxGapConstantH8 = SizedBox(height: 8);
 const SizedBox sizedBoxGapConstantH10 = SizedBox(height: 10);
 const SizedBox sizedBoxGapConstantW50 = SizedBox(width: 50);
+const double indicatorSize = 10.0;
+const double indicatorSpacing = 6.0;
 
 /// constant padding
 const EdgeInsets padding16 = EdgeInsets.all(16);
@@ -87,6 +97,7 @@ const BoxDecoration listingBackgroundStyle = BoxDecoration(
     gradient: LinearGradient(
         begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [mainListingBlack, mainListingBlue]));
 BoxDecoration activeNavIconStyle = BoxDecoration(borderRadius: BorderRadius.circular(50), gradient: activeIconGradient);
+RoundedRectangleBorder snackBarShapeStyle = RoundedRectangleBorder(borderRadius: BorderRadius.circular(10));
 
 ///constant image model
 final mockImageModel = ImageModel(
