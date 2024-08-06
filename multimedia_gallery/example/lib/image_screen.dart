@@ -13,7 +13,7 @@ class ImageScreen extends StatelessWidget {
         uploadedDate: DateTime.now().toString(),
         name: 'Scenery',
       ),
-          mockImageModel
+      mockImageModel
     ]));
   }
 }

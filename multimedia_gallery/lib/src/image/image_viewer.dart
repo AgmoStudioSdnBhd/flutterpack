@@ -202,7 +202,8 @@ class _ImageViewer extends StatefulWidget {
   State<_ImageViewer> createState() => _ImageViewerState();
 }
 
-class _ImageViewerState extends State<_ImageViewer> with WidgetsBindingObserver {
+class _ImageViewerState extends State<_ImageViewer>
+    with WidgetsBindingObserver {
   final PageController _pageController = PageController();
 
   @override
@@ -243,13 +244,17 @@ class _ImageViewerState extends State<_ImageViewer> with WidgetsBindingObserver 
 
   @override
   Widget build(BuildContext context) {
-    final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    final brightness =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
 
     final models = widget.model ?? [];
-    DateTime dateTime =
-        DateTime.tryParse(models[context.read<ImageViewModel>().currentIndex].uploadedDate ?? '')?.toLocal() ??
-            DateTime.now();
+    DateTime dateTime = DateTime.tryParse(
+                models[context.read<ImageViewModel>().currentIndex]
+                        .uploadedDate ??
+                    '')
+            ?.toLocal() ??
+        DateTime.now();
 
     return OrientationBuilder(builder: (context, orientation) {
       final isPortrait = orientation == Orientation.portrait;
@@ -258,7 +263,8 @@ class _ImageViewerState extends State<_ImageViewer> with WidgetsBindingObserver 
           child: SafeArea(
               child: Scaffold(
                   backgroundColor: Colors.transparent,
-                  appBar: widget.appBar ?? buildAppBarView(models, isDarkMode, dateTime),
+                  appBar: widget.appBar ??
+                      buildAppBarView(models, isDarkMode, dateTime),
                   body: Column(children: [
                     Expanded(
                         child: PageView.builder(
@@ -267,56 +273,91 @@ class _ImageViewerState extends State<_ImageViewer> with WidgetsBindingObserver 
                             itemBuilder: (context, index) {
                               final model = models[index];
                               return GestureDetector(
-                                  onLongPress: () => model.path != null && model.path!.startsWith('http')
+                                  onLongPress: () => model.path != null &&
+                                          model.path!.startsWith('http')
                                       ? _showDownloadDialog(model.path!)
                                       : null,
                                   child: InteractiveViewer(
-                                      transformationController: widget.transformationController,
-                                      boundaryMargin: widget.boundaryMargin ?? padding6,
-                                      clipBehavior: widget.clipBehaviour ?? Clip.hardEdge,
+                                      transformationController:
+                                          widget.transformationController,
+                                      boundaryMargin:
+                                          widget.boundaryMargin ?? padding6,
+                                      clipBehavior:
+                                          widget.clipBehaviour ?? Clip.hardEdge,
                                       constrained: widget.constrained ?? true,
                                       minScale: widget.minScale ?? 1,
                                       maxScale: widget.maxScale ?? 3,
                                       onInteractionEnd: widget.onInteractionEnd,
-                                      onInteractionStart: widget.onInteractionStart,
-                                      onInteractionUpdate: widget.onInteractionUpdate,
+                                      onInteractionStart:
+                                          widget.onInteractionStart,
+                                      onInteractionUpdate:
+                                          widget.onInteractionUpdate,
                                       panEnabled: widget.panEnabled ?? false,
                                       scaleEnabled: widget.scaleEnabled ?? true,
                                       child: Image(
-                                          image: getImageSourceType(model.path ?? ''),
-                                          fit: widget.fit ?? (isPortrait ? BoxFit.fitWidth : BoxFit.fitHeight),
-                                          width: widget.width ?? MediaQuery.of(context).size.width,
-                                          height: widget.height ?? MediaQuery.of(context).size.height,
+                                          image: getImageSourceType(
+                                              model.path ?? ''),
+                                          fit: widget.fit ??
+                                              (isPortrait
+                                                  ? BoxFit.fitWidth
+                                                  : BoxFit.fitHeight),
+                                          width: widget.width ??
+                                              MediaQuery.of(context).size.width,
+                                          height: widget.height ??
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .height,
                                           opacity: widget.opacity,
-                                          repeat: widget.repeat ?? ImageRepeat.noRepeat,
-                                          frameBuilder: widget.frameLoadedBuilder ??
-                                              (context, child, frame, wasSynchronouslyLoaded) => child,
-                                          loadingBuilder: widget.frameLoadingBuilder ??
-                                              (context, child, loadingProgress) {
-                                                if (loadingProgress == null) return child;
-                                                return Center(
-                                                    child: SizedBox(
-                                                        height: widget.indicatorHeight ??
-                                                            MediaQuery.of(context).size.height / 4,
-                                                        child: CircularProgressIndicator(
-                                                            value: loadingProgress.expectedTotalBytes != null
-                                                                ? loadingProgress.cumulativeBytesLoaded /
-                                                                    loadingProgress.expectedTotalBytes!
-                                                                : null)));
-                                              })));
+                                          repeat: widget.repeat ??
+                                              ImageRepeat.noRepeat,
+                                          frameBuilder: widget
+                                                  .frameLoadedBuilder ??
+                                              (context, child, frame,
+                                                      wasSynchronouslyLoaded) =>
+                                                  child,
+                                          loadingBuilder:
+                                              widget.frameLoadingBuilder ??
+                                                  (context, child,
+                                                      loadingProgress) {
+                                                    if (loadingProgress == null)
+                                                      return child;
+                                                    return Center(
+                                                        child: SizedBox(
+                                                            height: widget
+                                                                    .indicatorHeight ??
+                                                                MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height /
+                                                                    4,
+                                                            child: CircularProgressIndicator(
+                                                                value: loadingProgress
+                                                                            .expectedTotalBytes !=
+                                                                        null
+                                                                    ? loadingProgress
+                                                                            .cumulativeBytesLoaded /
+                                                                        loadingProgress
+                                                                            .expectedTotalBytes!
+                                                                    : null)));
+                                                  })));
                             })),
-                    if (models.length > 1) buildIndicatorView(models, isDarkMode)
+                    if (models.length > 1)
+                      buildIndicatorView(models, isDarkMode)
                   ]))));
     });
   }
 
-  PreferredSizeWidget buildAppBarView(List<ImageModel> models, bool isDarkMode, DateTime dateTime) {
+  PreferredSizeWidget buildAppBarView(
+      List<ImageModel> models, bool isDarkMode, DateTime dateTime) {
     return AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: isDarkMode ? Colors.black : Colors.white,
         flexibleSpace: PreferredSize(
             preferredSize: const Size.fromHeight(kToolbarHeight),
-            child: imageHeader(dateTime, models[context.read<ImageViewModel>().currentIndex].name ?? '', isDarkMode,
+            child: imageHeader(
+                dateTime,
+                models[context.read<ImageViewModel>().currentIndex].name ?? '',
+                isDarkMode,
                 () => Navigator.pop(context))));
   }
 
@@ -326,7 +367,9 @@ class _ImageViewerState extends State<_ImageViewer> with WidgetsBindingObserver 
         child: CustomIndicator(
             count: models.length,
             currentIndex: context.read<ImageViewModel>().currentIndex,
-            activeColor: isDarkMode ? Colors.white.withOpacity(0.8) : Colors.black.withOpacity(0.8),
+            activeColor: isDarkMode
+                ? Colors.white.withOpacity(0.8)
+                : Colors.black.withOpacity(0.8),
             inactiveColor: Colors.grey.withOpacity(0.6),
             spacing: indicatorSpacing,
             size: indicatorSize));
@@ -337,30 +380,44 @@ class _ImageViewerState extends State<_ImageViewer> with WidgetsBindingObserver 
         context: context,
         builder: (BuildContext dialogContext) {
           return AlertDialog(
-              title: const Text('Download Image', style: imageViewerDialogTitleTextStyle),
-              content: const Text('Do you want to download this image?', style: imageViewerDialogSubTitleTextStyle),
+              title: const Text('Download Image',
+                  style: imageViewerDialogTitleTextStyle),
+              content: const Text('Do you want to download this image?',
+                  style: imageViewerDialogSubTitleTextStyle),
               actions: <Widget>[
                 TextButton(
-                    child: const Text('Cancel', style: imageViewerDialogButtonTextStyle),
+                    child: const Text('Cancel',
+                        style: imageViewerDialogButtonTextStyle),
                     onPressed: () {
                       Navigator.of(dialogContext).pop();
                     }),
                 TextButton(
-                    child: const Text('Download', style: imageViewerDialogButtonTextStyle),
+                    child: const Text('Download',
+                        style: imageViewerDialogButtonTextStyle),
                     onPressed: () async {
                       Navigator.of(dialogContext).pop();
-                      final isSuccess = await context.read<ImageViewModel>().downloadImage(imageUrl);
-                      final message = isSuccess ? 'Your photo has been downloaded.' : 'Failed to save image';
-                      _showDownloadSnackBar(message: message, imagePath: imageUrl);
+                      final isSuccess = await context
+                          .read<ImageViewModel>()
+                          .downloadImage(imageUrl);
+                      final message = isSuccess
+                          ? 'Your photo has been downloaded.'
+                          : 'Failed to save image';
+                      _showDownloadSnackBar(
+                          message: message, imagePath: imageUrl);
                     })
               ]);
         });
   }
 
-  void _showDownloadSnackBar({required String message, required String imagePath}) {
+  void _showDownloadSnackBar(
+      {required String message, required String imagePath}) {
     final snackBar = SnackBar(
-        content: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Expanded(child: Text(message, overflow: TextOverflow.ellipsis, style: snackBarTitleTextStyle)),
+        content:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Expanded(
+              child: Text(message,
+                  overflow: TextOverflow.ellipsis,
+                  style: snackBarTitleTextStyle)),
           TextButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -378,13 +435,17 @@ class _ImageViewerState extends State<_ImageViewer> with WidgetsBindingObserver 
 
   Future<void> _viewImage(context, String imagePath) async {
     if (Platform.isAndroid) {
-      AndroidIntent intent =
-          AndroidIntent(action: 'action_view', type: 'image/*', data: imagePath, flags: [Flag.FLAG_ACTIVITY_NEW_TASK]);
+      AndroidIntent intent = AndroidIntent(
+          action: 'action_view',
+          type: 'image/*',
+          data: imagePath,
+          flags: [Flag.FLAG_ACTIVITY_NEW_TASK]);
       await intent.launch();
     } else if (Platform.isIOS) {
       final bool isAppOpen = await launchUrl(Uri.parse("photos-redirect://"));
       if (!isAppOpen) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Failed to open gallery')));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Failed to open gallery')));
       }
     }
   }

@@ -27,7 +27,9 @@ class CustomIndicator extends StatelessWidget {
               width: size,
               height: size,
               margin: EdgeInsets.symmetric(horizontal: spacing / 2),
-              decoration: BoxDecoration(shape: BoxShape.circle, color: isActive ? activeColor : inactiveColor));
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: isActive ? activeColor : inactiveColor));
         }));
   }
 }

@@ -257,24 +257,27 @@ class _VideoViewerState extends State<VideoViewer> {
           Visibility(
               visible: isShowIcon,
               child: VideoOverlay(
-                  overlayColor: widget.overlayColor,
-                  isPortrait: isPortrait,
-                  controller: controller,
-                  onPlayPressed: () {
-                    setState(() {
-                      if (controller.value.isPlaying) {
-                        pauseVideo();
-                      } else {
-                        playVideo();
-                      }
-                    });
-                  },
-                  onSliderChange: (value) {
-                    setState(() => value);
-                  },
-                  onChangeEnd: (value) {
-                    _seekTo(value);
-                  }, onSkipNext: onSkipNext, onSkipPrev: onSkipPrevious,))
+                overlayColor: widget.overlayColor,
+                isPortrait: isPortrait,
+                controller: controller,
+                onPlayPressed: () {
+                  setState(() {
+                    if (controller.value.isPlaying) {
+                      pauseVideo();
+                    } else {
+                      playVideo();
+                    }
+                  });
+                },
+                onSliderChange: (value) {
+                  setState(() => value);
+                },
+                onChangeEnd: (value) {
+                  _seekTo(value);
+                },
+                onSkipNext: onSkipNext,
+                onSkipPrev: onSkipPrevious,
+              ))
         ]));
   }
 }
