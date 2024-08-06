@@ -28,10 +28,13 @@ This feature support the display of image list, video list and audio list. Also 
 ### Image Viewer
 
 This feature support image panning, zoom in and out by pinching the image. This feature also supports for light mode and dark mode detector.
-This feature support long press download image. Also showing indicator when there is multiple image in the list.
+This feature support long press download image. Also showing indicator when there is multiple image in the list, swipe left and right for the next picture.
 
-<img src="multimedia_gallery/assets/images/image_viewer_example.gif" alt="drawing" width="200"/>
+<img src="multimedia_gallery/assets/images/image_list_indicator.png" alt="drawing" width="200"/>
 <img src="multimedia_gallery/assets/images/image_viewer_dark_mode_example.gif" alt="drawing" width="200"/>
+<img src="multimedia_gallery/assets/images/download_dialog_prompt.png" alt="drawing" width="200"/>
+<img src="multimedia_gallery/assets/images/download_complete_exp.png" alt="drawing" width="200"/>
+<img src="multimedia_gallery/assets/images/image_viewer_swipe.gif" alt="drawing" width="200"/>
 
 ### Video Viewer
 
