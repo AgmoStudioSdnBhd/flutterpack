@@ -6,14 +6,12 @@ class ImageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageList = [
+      mockAssetImageModel,
+      mockImageModel,
+    ];
+
     return Scaffold(
-        body: ImageViewer(model: [
-      ImageModel(
-        path: 'assets/images/scenery.jpeg',
-        uploadedDate: DateTime.now().toString(),
-        name: 'Scenery',
-      ),
-      mockImageModel
-    ]));
+        body: ImageViewer(model: imageList));
   }
 }
