@@ -1,3 +1,7 @@
+## 0.0.3+18
+- Added: `topSafeAreaEnabled`, `bottomSafeAreaEnabled`, `enableDarkMode` flag for `ImageViewer` class
+- Refactor: `imageHeader` widget is now refactored to `ImageHeader`, stateless widget.
+
 ## 0.0.3+17
 - Format code
 - Updated readme.md
