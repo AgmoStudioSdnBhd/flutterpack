@@ -22,14 +22,24 @@ List of features' supported platform
 
 ### Main Listing
 
-This feature support the display of image list, video list and audio list. Also support the on press to display the media viewer.
+This feature support:
+
+- Image list
+- Video list
+- Audio list
 
 <img src="multimedia_gallery/assets/images/listing.gif" width="400">
 
 ### Image Viewer
 
-This feature support image panning, zoom in and out by pinching the image. This feature also supports for light mode and dark mode detector.
-This feature support long press download image. Also showing indicator when there is multiple image in the list, swipe left and right for the next picture.
+This feature support:
+
+- Image panning: Drag to pan the image
+- Zoom in and out: Zoom in and out by pinching the image
+- Light and dark mode detector: Display different UI based on the display mode
+- Download image: Long press to download the image
+- List indicator: To show the number of image(s) in the list
+- Next or previous image: Drag the image to left or right for next or previous image
 
 <img src="multimedia_gallery/assets/images/image_list_indicator.png" alt="drawing" width="200"/>
 <img src="multimedia_gallery/assets/images/image_viewer_dark_mode_example.gif" alt="drawing" width="200"/>
@@ -42,21 +52,26 @@ This feature support long press download image. Also showing indicator when ther
 This feature support both device orientation with different user interface.
 
 It also include:
+- Device orientation: Display different UI based on device orientation
+- Play video: Play and resume video
+- Pause video: Pause the video
+- Skip next or previous video: Skip to next or previous video
+- Replay video: Replay video after the video is completed
+- Duration slider: Slide the video slider to desire timestamp
 
-- Play video: Able to play and resume video
-- Pause video: Able to pause the video
-- Duration slider: Able to slide the video to desire timestamp
-- Next and Previous video: Able to press skip next or skip previous button to proceed to next and previous video.
-- Replay video: Able to replay the video after the video is done playing.
-
-  ![Image Viewer Example](multimedia_gallery/assets/images/play_pause_video_example.gif)
-  ![Image Viewer Example](multimedia_gallery/assets/images/slider_example.gif)
+![Image Viewer Example](multimedia_gallery/assets/images/play_pause_video_example.gif)
+![Image Viewer Example](multimedia_gallery/assets/images/replay_video_exp.gif)
+![Image Viewer Example](multimedia_gallery/assets/images/slider_example.gif)
 
 ### Audio Viewer
 
-This feature include play, pause and seek certain timestamp with presentable user interface.
+This feature support:
 
-This feature is also supporting skip to next audio.
+- Play audio: Play and resume audio
+- Pause audio: Pause the video
+- Skip next or previous audio: Skip to next or previous audio
+- Replay audio: Replay audio after the audio is completed
+- Duration slider: Slide the audio slider to desire timestamp
 
 https://github.com/AgmoStudioSdnBhd/flutterpack/assets/164973699/6823591b-f8a4-4941-aa29-f6e63f69843d
 
