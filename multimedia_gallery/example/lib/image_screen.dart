@@ -11,7 +11,6 @@ class ImageScreen extends StatelessWidget {
       mockImageModel,
     ];
 
-    return Scaffold(
-        body: ImageViewer(model: imageList));
+    return Scaffold(body: ImageViewer(model: imageList));
   }
 }
