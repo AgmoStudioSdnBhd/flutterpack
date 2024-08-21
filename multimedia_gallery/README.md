@@ -22,17 +22,27 @@ List of features' supported platform
 
 ### Main Listing
 
-This feature support the display of image list, video list and audio list. Also support the on press to display the media viewer.
+This feature support:
+
+- Image list
+- Video list
+- Audio list
 
 <img src="https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/listing.gif" width="400" alt="listing">
 
 ### Image Viewer
 
-This feature support image panning, zoom in and out by pinching the image. This feature also supports for light mode and dark mode detector.
-This feature support long press download image. Also showing indicator when there is multiple image in the list.
+This feature support:
 
-  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_list_indicator.png" alt="drawing" width="200"/>
-  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_viewer_dark_mode_example.gif" alt="drawing" width="200"/>
+- Image panning: Drag to pan the image
+- Zoom in and out: Zoom in and out by pinching the image
+- Light and dark mode detector: Display different UI based on the display mode
+- Download image: Long press to download the image
+- List indicator: To show the number of image(s) in the list
+- Next or previous image: Drag the image to left or right for next or previous image
+
+<img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_list_indicator.png" alt="drawing" width="200"/>
+<img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_viewer_dark_mode_example.gif" alt="drawing" width="200"/>
 <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/download_dialog_prompt.png" alt="drawing" width="200"/>
 <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/download_complete_exp.png" alt="drawing" width="200"/>
 <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_viewer_swipe.gif" alt="drawing" width="200"/>
@@ -43,18 +53,26 @@ This feature support both device orientation with different user interface.
 
 It also include:
 
-- Play video: Able to play and resume video
-- Pause video: Able to pause the video
-- Duration slider: Able to slide the video to desire timestamp
+- Device orientation: Display different UI based on device orientation
+- Play video: Play and resume video
+- Pause video: Pause the video
+- Skip next or previous video: Skip to next or previous video
+- Replay video: Replay video after the video is completed
+- Duration slider: Slide the video slider to desire timestamp
 
-  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/play_pause_video_example.gif" alt="drawing" width="200"/>
-
-  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/slider_example.gif" alt="drawing" width="400"/>
+<img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/play_pause_video_example.gif" alt="drawing" width="200"/>
+<img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/8da7b65855cb7b14eb5d1e4813f1b10d94f1f95d/multimedia_gallery/assets/images/replay_video_exp.gif" alt="drawing" width="200"/>
+<img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/slider_example.gif" alt="drawing" width="400"/>
 
 ### Audio Viewer
 
-This feature include play, pause and seek certain timestamp with presentable user interface.
-This feature is also supporting skip to next audio.
+This feature support:
+
+- Play audio: Play and resume audio
+- Pause audio: Pause the video
+- Skip next or previous audio: Skip to next or previous audio
+- Replay audio: Replay audio after the audio is completed
+- Duration slider: Slide the audio slider to desire timestamp
 
 <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/audio_viewer_example.gif" alt="drawing" width="200"/>
 
@@ -62,11 +80,11 @@ Feature also include different user interface for different image file type
 
 - Animated image
 
-  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/gif_audio_viewer_example.gif" alt="drawing" width="200"/>
+<img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/gif_audio_viewer_example.gif" alt="drawing" width="200"/>
 
 - Normal image
 
-  <img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_audio_viewer_example.gif" alt="drawing" width="200"/>
+<img src= "https://github.com/AgmoStudioSdnBhd/flutterpack/raw/main/multimedia_gallery/assets/images/image_audio_viewer_example.gif" alt="drawing" width="200"/>
 
 ### Requirements
 
