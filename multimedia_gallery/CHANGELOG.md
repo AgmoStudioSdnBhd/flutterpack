@@ -1,3 +1,6 @@
+## 0.0.8+22
+- Added: `downloadImageEnabled` flag for `ImageViewer` class.
+
 ## 0.0.7+21
 - Added: `overwriteUiMode`, `customUiMode`, `downloadDialogTitle`, `downloadDialogDescription`, `downloadDialogPositiveButtonText`, `downloadDialogNegativeButtonText`, `downloadSuccessText`, `downloadFailedText`, `downloadToastButtonText`, `openGalleryFailedText` for `ImageViewer` class to support customisations.
 - Updated: versioning of packages used
