@@ -1,3 +1,7 @@
+## 0.0.7+21
+- Added: `overwriteUiMode`, `customUiMode`, `downloadDialogTitle`, `downloadDialogDescription`, `downloadDialogPositiveButtonText`, `downloadDialogNegativeButtonText`, `downloadSuccessText`, `downloadFailedText`, `downloadToastButtonText`, `openGalleryFailedText` for `ImageViewer` class to support customisations.
+- Updated: versioning of packages used
+
 ## 0.0.6+20
 - Updated: `image_gallery_saver` package is replaced with `image_gallery_saver_plus` in order to support AGP 8 and above versions.
 

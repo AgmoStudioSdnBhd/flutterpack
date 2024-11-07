@@ -8,7 +8,8 @@ class ImageRepository extends ChangeNotifier {
     final response = await http.get(Uri.parse(imageUrl));
     final bytes = response.bodyBytes;
 
-    final result = await ImageGallerySaverPlus.saveImage(Uint8List.fromList(bytes));
+    final result =
+        await ImageGallerySaverPlus.saveImage(Uint8List.fromList(bytes));
     return result['isSuccess'];
   }
 }
