@@ -1,3 +1,6 @@
+## 0.0.6+20
+- Updated: `image_gallery_saver` package is replaced with `image_gallery_saver_plus` in order to support AGP 8 and above versions.
+
 ## 0.0.5+19
 - Fix: Pub dev readme
 - Format code
