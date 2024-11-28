@@ -1,4 +1,11 @@
 ## 0.0.8+22
+- Added: `backgroundColor` flag for `ImageViewer` class.
+- Added: `appBarBackgroundColor` flag for `ImageViewer` class.
+- Added: `indicatorActiveColor` flag for `ImageViewer` class.
+- Added: `indicatorInactiveColor` flag for `ImageViewer` class.
+- Fix: Video Thumbnail namespace issue.
+
+## 0.0.8+22
 - Added: `downloadImageEnabled` flag for `ImageViewer` class.
 
 ## 0.0.7+21

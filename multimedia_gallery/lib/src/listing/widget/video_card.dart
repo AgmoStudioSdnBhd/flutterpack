@@ -2,10 +2,11 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:get_thumbnail_video/index.dart';
+import 'package:get_thumbnail_video/video_thumbnail.dart';
 import 'package:intl/intl.dart';
 import 'package:multimedia_gallery/src/extension/extension.dart';
 import 'package:multimedia_gallery/src/listing/model/model.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 
 /// The video card. To display the video list card widget in the listing page.
 class VideoCard extends StatefulWidget {
@@ -39,7 +40,7 @@ class _VideoCardState extends State<VideoCard> {
   }
 
   Future<void> generateThumbnail() async {
-    final path = await VideoThumbnail.thumbnailFile(
+    final thumbnailFile = await VideoThumbnail.thumbnailFile(
       video: widget.model.path ?? '',
       thumbnailPath: thumbnailPath,
       imageFormat: ImageFormat.JPEG,
@@ -47,7 +48,7 @@ class _VideoCardState extends State<VideoCard> {
       // specify the width of the thumbnail, let the height auto-scaled to keep the source aspect ratio
       quality: 100,
     );
-    final file = File(path ?? '');
+    final file = File(thumbnailFile.path);
     setState(() {
       thumbnailBytes = file.readAsBytesSync();
     });
@@ -58,7 +59,7 @@ class _VideoCardState extends State<VideoCard> {
     ImageProvider? thumbnailImg = MemoryImage(thumbnailBytes ?? Uint8List(8));
     String? dt = DateFormat('d MMMM yyyy hh:mm a')
         .format(DateTime.tryParse(widget.model.uploadedDate ?? '')?.toLocal() ??
-            DateTime.now())
+        DateTime.now())
         .toString();
 
     return Container(
@@ -77,10 +78,10 @@ class _VideoCardState extends State<VideoCard> {
                   child: SizedBox(
                       child: thumbnailBytes != null
                           ? Image(
-                              image: thumbnailImg,
-                              fit: BoxFit.cover,
-                              filterQuality: FilterQuality.high,
-                            )
+                        image: thumbnailImg,
+                        fit: BoxFit.cover,
+                        filterQuality: FilterQuality.high,
+                      )
                           : Container(width: 160, color: Colors.white54)))),
           Flexible(
               flex: 4,
