@@ -57,6 +57,10 @@ class ImageViewer extends StatelessWidget {
     this.downloadToastButtonText = 'VIEW',
     this.openGalleryFailedText = 'Failed to open gallery.',
     this.downloadImageEnabled = true,
+    this.backgroundColor,
+    this.appBarBackgroundColor,
+    this.indicatorActiveColor,
+    this.indicatorInactiveColor,
   });
 
   /// The image model.
@@ -137,8 +141,8 @@ class ImageViewer extends StatelessWidget {
   /// To enable bottom safe area. Default: [true]
   final bool bottomSafeAreaEnabled;
 
-  /// To enable dark mode styles. Default: [true]
-  final bool darkModeEnabled;
+  /// To enable dark mode styles, if null, will use device brightness mode. Default: [null]
+  final bool? darkModeEnabled;
 
   /// To enable the overwriting of system ui mode of the app. Default: [true]
   final bool overwriteUiMode;
@@ -172,6 +176,18 @@ class ImageViewer extends StatelessWidget {
 
   /// To enable download onLongPressed: Default: [true]
   final bool downloadImageEnabled;
+
+  /// Background color, default to follow dark and light mode, black for dark mode, white for light mode
+  final Color? backgroundColor;
+
+  /// App bar background color, default to backgroundColor
+  final Color? appBarBackgroundColor;
+
+  /// Active indicator color, default to backgroundColor with opacity of 0.8
+  final Color? indicatorActiveColor;
+
+  /// Inactive indicator color, default to grey color
+  final Color? indicatorInactiveColor;
 
   @override
   Widget build(BuildContext context) {
@@ -216,6 +232,10 @@ class ImageViewer extends StatelessWidget {
           downloadToastButtonText: downloadToastButtonText,
           openGalleryFailedText: openGalleryFailedText,
           downloadImageEnabled: downloadImageEnabled,
+          backgroundColor: backgroundColor,
+          appBarBackgroundColor: appBarBackgroundColor,
+          indicatorActiveColor: indicatorActiveColor,
+          indicatorInactiveColor: indicatorInactiveColor,
         ));
   }
 }
@@ -248,9 +268,13 @@ class _ImageViewer extends StatefulWidget {
     this.height,
     this.topSafeAreaEnabled = true,
     this.bottomSafeAreaEnabled = true,
-    this.darkModeEnabled = true,
+    this.darkModeEnabled,
     this.overwriteUiMode = true,
     this.customUiMode,
+    this.backgroundColor,
+    this.appBarBackgroundColor,
+    this.indicatorActiveColor,
+    this.indicatorInactiveColor,
     required this.downloadDialogTitle,
     required this.downloadDialogDescription,
     required this.downloadDialogPositiveButtonText,
@@ -287,7 +311,7 @@ class _ImageViewer extends StatefulWidget {
   final double? height;
   final bool topSafeAreaEnabled;
   final bool bottomSafeAreaEnabled;
-  final bool darkModeEnabled;
+  final bool? darkModeEnabled;
   final bool overwriteUiMode;
   final SystemUiMode? customUiMode;
   final String downloadDialogTitle;
@@ -299,6 +323,10 @@ class _ImageViewer extends StatefulWidget {
   final String downloadToastButtonText;
   final String openGalleryFailedText;
   final bool downloadImageEnabled;
+  final Color? backgroundColor;
+  final Color? appBarBackgroundColor;
+  final Color? indicatorActiveColor;
+  final Color? indicatorInactiveColor;
 
   @override
   State<_ImageViewer> createState() => _ImageViewerState();
@@ -354,7 +382,7 @@ class _ImageViewerState extends State<_ImageViewer>
   Widget build(BuildContext context) {
     final brightness =
         WidgetsBinding.instance.platformDispatcher.platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark && widget.darkModeEnabled;
+    bool isDarkMode = widget.darkModeEnabled ?? (brightness == Brightness.dark);
 
     final models = widget.model ?? [];
     DateTime dateTime = DateTime.tryParse(
@@ -364,17 +392,21 @@ class _ImageViewerState extends State<_ImageViewer>
         ?.toLocal() ??
         DateTime.now();
 
+    final bgColor =
+        widget.backgroundColor ?? (isDarkMode ? Colors.black : Colors.white);
+
     return OrientationBuilder(builder: (context, orientation) {
       final isPortrait = orientation == Orientation.portrait;
       return Container(
-          color: isDarkMode ? Colors.black : Colors.white,
+          color: bgColor,
           child: SafeArea(
               top: widget.topSafeAreaEnabled,
               bottom: widget.bottomSafeAreaEnabled,
               child: Scaffold(
                   backgroundColor: Colors.transparent,
                   appBar: widget.appBar ??
-                      buildAppBarView(models, isDarkMode, dateTime),
+                      buildAppBarView(models, isDarkMode, dateTime,
+                          widget.appBarBackgroundColor ?? bgColor),
                   body: Column(children: [
                     Expanded(
                         child: PageView.builder(
@@ -460,11 +492,11 @@ class _ImageViewerState extends State<_ImageViewer>
     });
   }
 
-  PreferredSizeWidget buildAppBarView(
-      List<ImageModel> models, bool isDarkMode, DateTime dateTime) {
+  PreferredSizeWidget buildAppBarView(List<ImageModel> models, bool isDarkMode,
+      DateTime dateTime, Color backgroundColor) {
     return AppBar(
       automaticallyImplyLeading: false,
-      backgroundColor: isDarkMode ? Colors.black : Colors.white,
+      backgroundColor: backgroundColor,
       flexibleSpace: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: ImageHeader(
@@ -483,10 +515,12 @@ class _ImageViewerState extends State<_ImageViewer>
         child: CustomIndicator(
             count: models.length,
             currentIndex: context.read<ImageViewModel>().currentIndex,
-            activeColor: isDarkMode
-                ? Colors.white.withOpacity(0.8)
-                : Colors.black.withOpacity(0.8),
-            inactiveColor: Colors.grey.withOpacity(0.6),
+            activeColor: widget.indicatorActiveColor ??
+                (isDarkMode
+                    ? Colors.white.withOpacity(0.8)
+                    : Colors.black.withOpacity(0.8)),
+            inactiveColor:
+            widget.indicatorInactiveColor ?? Colors.grey.withOpacity(0.6),
             spacing: indicatorSpacing,
             size: indicatorSize));
   }
