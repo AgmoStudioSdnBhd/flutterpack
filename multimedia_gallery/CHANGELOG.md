@@ -1,4 +1,4 @@
-## 0.0.8+22
+## 0.0.9+23
 - Added: `backgroundColor` flag for `ImageViewer` class.
 - Added: `appBarBackgroundColor` flag for `ImageViewer` class.
 - Added: `indicatorActiveColor` flag for `ImageViewer` class.
